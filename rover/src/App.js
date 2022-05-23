@@ -1,24 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useRef } from 'react';
 
 function App() {
+
+  function KeyUpHandler() {
+
+    const keysPressedDown = useRef({});
+    console.log("Hi")
+        window.addEventListener("keydown",
+            (event) => {
+                // up
+                if (event.key === "ArrowUp") {
+                    keysPressedDown.current[event.code] = true;
+                }
+            }, false);
+        window.addEventListener("keyup",
+            event => {
+                // up
+                if (event.key === "ArrowUp") {
+                    keysPressedDown.current[event.code] = false;
+                }
+            }, false);
+
+    return <></>
+
+}
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+    <p> Enter Up or Down</p>
+      {KeyUpHandler()}
+  </>
   );
 }
 
