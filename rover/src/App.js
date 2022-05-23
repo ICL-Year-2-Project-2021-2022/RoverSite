@@ -3,6 +3,15 @@ import React, { useRef } from 'react';
 
 function App() {
 
+  function PostMessage(message){
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(message)
+    };
+    //fetch()
+  }
+
   function KeyUpHandler() {
 
     const keysPressedDown = useRef({});
