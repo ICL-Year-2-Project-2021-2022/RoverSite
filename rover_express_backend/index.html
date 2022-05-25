@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h2>Control the robot</h2>
+        <button onmousedown="start()" onmouseup="end()">Forward</button><br>
+        <p id="counter"></p> 
+        <form action="/" method="post" id="form1">
+            <!-- this is a comment: br tag is for line break-->
+            <label for="num1"> Input number:</label><br>
+            <input type="text" id="num1" name="num1"><br>
+            <input type="submit" value="Check!">
+        </form>
+
+        <script>
+        var wrapper = document.getElementById('counter');
+        var counter;
+        var count = 0;
+
+        function start() {
+            counter = setInterval(function() {
+                wrapper.innerHTML = count;
+                count++;
+                console.log(count);
+            }, 100);
+        }
+        function end() {
+            clearInterval(counter);
+        }
+
+        </script>
+
+    </body>
+</html>
