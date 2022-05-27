@@ -1,8 +1,10 @@
-let url = 'https://127.0.0.1:3000/controller/get/json';
+const fetch = require('node-fetch');
+let url = 'http://127.0.0.1:3000/controller/get/json';
+
+var obj
 
 fetch(url)
-.then(res => res.json())
-.then((out) => {
-  console.log('Checkout this JSON! ', out);
-})
-.catch(err => { throw err });
+    .then(res => res.json())
+    .then(data => obj = data)
+    .then(() => console.log(obj))
+    .catch(err => console.error(err));
