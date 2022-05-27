@@ -1,7 +1,10 @@
 var express = require('express');
 var server = express();
-var bodyParser = require('body-parser');
-server.use(bodyParser.json());
+const mysql = require('mysql');
+const cors = require('cors');
+server.use(cors());
+
+port = 5000
 
 server.get('/', function(req, res) {
 res.writeHead(200, {'Content-Type':'text/html'});
