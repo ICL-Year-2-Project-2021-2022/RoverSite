@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-let url = 'http://127.0.0.1:3000/controller/get/json';
+let url = 'http://54.224.62.48:3000/controller/get/json';
 
 var obj
 

@@ -7,13 +7,13 @@ server.use(bodyParser.urlencoded({extended:true}));
 
 
 server.get('/',function(req,res){
-    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/index.html');
+    res.sendFile('/RoverSite/rover_server/index.html');
 });
 // Serve interface
 
 server.get('/controller/get/json', function(req,res){
     res.writeHead(200,{'Content-Type': 'application/json'});
-    let resJSON= require('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/testing.json')
+    let resJSON= require('/RoverSite/rover_server/testing.json')
     let strJSON= JSON.stringify(resJSON);
     res.end(strJSON);
 });
@@ -25,5 +25,5 @@ server.get('/controller/get/json', function(req,res){
 //     res.writeHead(200, {'Content-Type':'application/json'})
 // });
 
-server.listen(3000, "0.0.0.0");
+server.listen(3000, "127.0.0.1");
 console.log("Listening on port " + 3000);

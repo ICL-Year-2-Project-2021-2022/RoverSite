@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h2>Control the robot</h2>
+        <div style = "position:absolute; left:80px; top:80px"> 
+            <button onmousedown="startfor()" onmouseup="endfor()">Forward</button><br>
+        </div>
+        <div style = "position:absolute; left:20px; top:110px"> 
+            <button onmousedown="start()" onmouseup="end()">Left</button>
+        </div>
+        <div style = "position:absolute; left:80px; top:110px"> 
+            <button onmousedown="start()" onmouseup="end()">Backward</button>
+        </div>
+        <div style = "position:absolute; left:160px; top:110px"> 
+            <button onmousedown="start()" onmouseup="end()">Right</button>
+        </div>
+        
+        <p id="counter"></p> 
+
+        <script>
+            var wrapper = document.getElementById('counter');
+            var counter;
+            var count = 0;
+
+            function startfor() {
+                counter = setInterval(function() {
+                    wrapper.innerHTML = count;
+                    count++;
+                    console.log(count);
+                }, 100);
+            }
+            function endfor() {
+                clearInterval(counter);
+            }
+
+        </script>
+
+    </body>
+</html>
