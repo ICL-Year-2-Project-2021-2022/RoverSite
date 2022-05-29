@@ -24,6 +24,5 @@ server.get('/controller/get/json', function(req,res){
 //     let jsonTree= JSON.parse();
 //     res.writeHead(200, {'Content-Type':'application/json'})
 // });
-
-server.listen(3000, "127.0.0.1");
-console.log("Listening on port " + 3000);
+console.log('Server is running on port 3000');
+server.listen(3000, '127.0.0.1');
