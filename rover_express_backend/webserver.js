@@ -18,6 +18,12 @@ server.get('/controller/get/json', function(req,res){
     res.end(strJSON);
 });
 
+
+server.post('/controller/post/json', function(req,res){
+    console.log(req.body);
+    
+});
+
 // server.post('controller/post/json', function(req,res){
 //     const jsonData = req.body;
 //     const responseContent = ""
