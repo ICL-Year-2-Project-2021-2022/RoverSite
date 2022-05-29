@@ -7,16 +7,20 @@ server.use(bodyParser.urlencoded({extended:true}));
 
 
 server.get('/',function(req,res){
-    res.sendFile('/RoverSite/rover_server/index.html');
+    res.sendFile('home/ubuntu/RoverSite/rover_server/index.html');
 });
 // Serve interface
 
 server.get('/controller/get/json', function(req,res){
     res.writeHead(200,{'Content-Type': 'application/json'});
-    let resJSON= require('/RoverSite/rover_server/testing.json')
+    let resJSON= require('home/ubuntu/RoverSite/rover_server/testing.json')
     let strJSON= JSON.stringify(resJSON);
     res.end(strJSON);
 });
+
+server.post('/controller/post/json', function(req,res){
+    
+})
 
 // server.post('controller/post/json', function(req,res){
 //     const jsonData = req.body;
@@ -25,4 +29,4 @@ server.get('/controller/get/json', function(req,res){
 //     res.writeHead(200, {'Content-Type':'application/json'})
 // });
 console.log('Server is running on port 3000');
-server.listen(3000, '127.0.0.1');
+server.listen(3000, '0.0.0.0');

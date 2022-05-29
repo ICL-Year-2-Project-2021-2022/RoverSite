@@ -6,13 +6,13 @@
             <button onmousedown="startfor()" onmouseup="endfor()">Forward</button><br>
         </div>
         <div style = "position:absolute; left:20px; top:110px"> 
-            <button onmousedown="start()" onmouseup="end()">Left</button>
+            <button onmousedown="startback()" onmouseup="endback()">Left</button>
         </div>
         <div style = "position:absolute; left:80px; top:110px"> 
-            <button onmousedown="start()" onmouseup="end()">Backward</button>
+            <button onmousedown="startleft()" onmouseup="endleft()">Backward</button>
         </div>
         <div style = "position:absolute; left:160px; top:110px"> 
-            <button onmousedown="start()" onmouseup="end()">Right</button>
+            <button onmousedown="startright()" onmouseup="endright()">Right</button>
         </div>
         
         <p id="counter"></p> 
@@ -20,7 +20,11 @@
         <script>
             var wrapper = document.getElementById('counter');
             var counter;
+            var countfor = 0;
+            var countback = 0;
             var count = 0;
+            var countfor = 0;
+
 
             function startfor() {
                 counter = setInterval(function() {
@@ -30,6 +34,36 @@
                 }, 100);
             }
             function endfor() {
+                clearInterval(counter);
+            }
+            function startback() {
+                counter = setInterval(function() {
+                    wrapper.innerHTML = count;
+                    count++;
+                    console.log(count);
+                }, 100);
+            }
+            function entback() {
+                clearInterval(counter);
+            }
+            function startleft() {
+                counter = setInterval(function() {
+                    wrapper.innerHTML = count;
+                    count++;
+                    console.log(count);
+                }, 100);
+            }
+            function endleft() {
+                clearInterval(counter);
+            }
+            function startright() {
+                counter = setInterval(function() {
+                    wrapper.innerHTML = count;
+                    count++;
+                    console.log(count);
+                }, 100);
+            }
+            function endright() {
                 clearInterval(counter);
             }
 
