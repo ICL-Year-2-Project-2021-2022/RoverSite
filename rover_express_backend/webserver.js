@@ -20,9 +20,8 @@ server.get('/controller/get/json', function(req,res){
     res.end(strJSON);
 });
 
-const database = new Datastore('database.db');
+const database = new Datastore('data_controller.db');
 database.loadDatabase();
-
 //load the existing database into memory. If it isn't such a database, it will create a new one
 
 server.post('/controller/post/json', function(req,res){
@@ -43,6 +42,8 @@ server.post('/controller/post/json', function(req,res){
     });
     
 });
+
+
 
 // server.post('controller/post/json', function(req,res){
 //     const jsonData = req.body;

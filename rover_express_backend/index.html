@@ -19,8 +19,9 @@
 
         <script>
             let url = 'http://127.0.0.1:3000/controller/post/json';
+            let buttondown= false;
             var id=0;
-             var wrapper = document.getElementById('counter');
+            var wrapper = document.getElementById('counter');
             
             var counter;
             var countfor=0;
@@ -28,13 +29,15 @@
             var countleft=0;
             var countright=0;
            
-            
-
-
-
            
-           
-            setInterval(function(){update()},500);
+            setInterval(
+                function (){
+                    if(buttondown){
+                        update(); 
+                        id = id+1;
+                    }
+                },500);
+                
             function update(){
                 var data = { 'id': id, 'countfor':countfor, 'countback': countback, 'countleft': countleft, 'countright': countright};
                 
@@ -52,9 +55,11 @@
                     .then(data => obj = data)
                     .then(() => console.log(obj))
                     .catch(err => console.error(err));
+                
             }
             
             function startfor() {
+                buttondown=true;
                 counter = setInterval(function() {
                     wrapper.innerHTML = countfor;
                     countfor++;
@@ -63,9 +68,11 @@
                 }, 100);
             }
             function endfor() {
+                buttondown=false;
                 clearInterval(counter);
             }
             function startleft() {
+                buttondown=true;
                 counter = setInterval(function() {
                     wrapper.innerHTML = countleft;
                     countleft++;
@@ -73,9 +80,11 @@
                 }, 100);
             }
             function endleft() {
+                buttondown=false;
                 clearInterval(counter);
             }
             function startback() {
+                buttondown=true;
                 counter = setInterval(function() {
                     wrapper.innerHTML = countback;
                     countback++;
@@ -83,9 +92,11 @@
                 }, 100);
             }
             function endback() {
+                buttondown=false;
                 clearInterval(counter);
             }
             function startright() {
+                buttondown=true;
                 counter = setInterval(function() {
                     wrapper.innerHTML = countright;
                     countright++;
@@ -93,6 +104,7 @@
                 }, 100);
             }
             function endright() {
+                buttondown=false;
                 clearInterval(counter);
             }
 
