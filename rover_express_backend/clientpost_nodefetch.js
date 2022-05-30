@@ -14,4 +14,8 @@ const opt = {
     
 };
 
-fetch(url,opt);
+fetch(url,opt)
+    .then(res => res.json())
+    .then(data => obj = data)
+    .then(() => console.log(obj))
+    .catch(err => console.error(err));
