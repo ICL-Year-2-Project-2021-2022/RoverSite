@@ -6,30 +6,105 @@
             <button onmousedown="startfor()" onmouseup="endfor()">Forward</button><br>
         </div>
         <div style = "position:absolute; left:20px; top:110px"> 
-            <button onmousedown="start()" onmouseup="end()">Left</button>
+            <button onmousedown="startleft()" onmouseup="endleft()">Left</button>
         </div>
         <div style = "position:absolute; left:80px; top:110px"> 
-            <button onmousedown="start()" onmouseup="end()">Backward</button>
+            <button onmousedown="startback()" onmouseup="endback()">Backward</button>
         </div>
         <div style = "position:absolute; left:160px; top:110px"> 
-            <button onmousedown="start()" onmouseup="end()">Right</button>
+            <button onmousedown="startright()" onmouseup="endright()">Right</button>
         </div>
-        
         <p id="counter"></p> 
+        
 
         <script>
+            let url = 'http://54.224.62.48:3000/controller/post/json';
+            let buttondown= false;
+            var id=0;
             var wrapper = document.getElementById('counter');
+            
             var counter;
-            var count = 0;
-
+            var countfor=0;
+            var countback=0;
+            var countleft=0;
+            var countright=0;
+           
+           
+            setInterval(
+                function (){
+                    if(buttondown){
+                        update(); 
+                        id = id+1;
+                    }
+                },500);
+                
+            function update(){
+                var data = { 'id': id, 'countfor':countfor, 'countback': countback, 'countleft': countleft, 'countright': countright};
+                
+                const opt = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                
+                };
+                console.log(opt.body);
+                fetch(url,opt)
+                    .then(res => res.json())
+                    .then(data => obj = data)
+                    .then(() => console.log(obj))
+                    .catch(err => console.error(err));
+                
+            }
+            
             function startfor() {
+                buttondown=true;
                 counter = setInterval(function() {
-                    wrapper.innerHTML = count;
-                    count++;
-                    console.log(count);
+                    wrapper.innerHTML = countfor;
+                    countfor++;
+                    console.log(countfor);
+
                 }, 100);
             }
             function endfor() {
+                buttondown=false;
+                clearInterval(counter);
+            }
+            function startleft() {
+                buttondown=true;
+                counter = setInterval(function() {
+                    wrapper.innerHTML = countleft;
+                    countleft++;
+                    console.log(countleft);
+                }, 100);
+            }
+            function endleft() {
+                buttondown=false;
+                clearInterval(counter);
+            }
+            function startback() {
+                buttondown=true;
+                counter = setInterval(function() {
+                    wrapper.innerHTML = countback;
+                    countback++;
+                    console.log(countback);
+                }, 100);
+            }
+            function endback() {
+                buttondown=false;
+                clearInterval(counter);
+            }
+            function startright() {
+                buttondown=true;
+                counter = setInterval(function() {
+                    wrapper.innerHTML = countright;
+                    countright++;
+                    console.log(countright);
+                }, 100);
+            }
+            function endright() {
+                buttondown=false;
                 clearInterval(counter);
             }
 
