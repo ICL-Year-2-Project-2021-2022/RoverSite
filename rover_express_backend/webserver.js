@@ -4,12 +4,13 @@ var bodyParser= require('body-parser');
 var htmlParser = require('node-html-parser');
 //nedb is a subset of mongodb, very lightweight
 var Datastore = require('nedb');
+const { response } = require('express');
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended:true}));
 
 
 server.get('/',function(req,res){
-    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/index.html');
+    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/controller.html');
 });
 // Serve interface
 
@@ -20,9 +21,37 @@ server.get('/controller/get/json', function(req,res){
     res.end(strJSON);
 });
 
-const database = new Datastore('data_controller.db');
-database.loadDatabase();
+const database_contr = new Datastore('data_controller.db');
+database_contr.loadDatabase();
 //load the existing database into memory. If it isn't such a database, it will create a new one
+
+//used to visualise data retrieved by rover
+server.get('rover.html',function(req,res){
+    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/rover.html');
+});
+
+//this is to get the latest entry of controller
+server.get('/rover/get/json', function(req,res){
+    database_contr.find({}).sort({ id: -1 }).limit(1).exec(function (err, data) {
+        res.json(data);
+        console.log(data);
+    });
+    
+    // database_contr.count({}, function (err, count){ 
+    //     let searchId= count-1;
+        // database_contr.find({id: searchId},(err,data)=>{
+        // if (err){
+        //     response.end();
+        //     return;
+        // }
+        // res.json(data);
+        // console.log(data);
+    // })
+});
+    
+    
+    
+
 
 server.post('/controller/post/json', function(req,res){
     console.log('Post Request Recieved')
@@ -30,7 +59,7 @@ server.post('/controller/post/json', function(req,res){
     const data = req.body;
     const timestamp = Date.now();
     data.timestamp = timestamp;
-    database.insert(data);
+    database_contr.insert(data);
     res.json({
         'status': 'success',
         'id': data.id,
