@@ -19,7 +19,7 @@ server.get('/',function(req,res){
           console.log("File removed:", 'data_controller.db');
         }
     });
-    res.sendFile('/RoverSite/rover_express_backend/controller.html');
+    res.sendFile('/RoverSite/rover_server/controller.html');
 });
 // Serve interface
 
@@ -36,7 +36,7 @@ database_contr.loadDatabase();
 
 //used to visualise data retrieved by rover
 server.get('rover.html',function(req,res){
-    res.sendFile('/RoverSite/rover_express_backend/rover.html');
+    res.sendFile('/RoverSite/rover_server/rover.html');
 });
 
 //this is to get the latest entry of controller
