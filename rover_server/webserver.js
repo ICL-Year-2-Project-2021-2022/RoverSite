@@ -19,13 +19,13 @@ server.get('/',function(req,res){
           console.log("File removed:", 'data_controller.db');
         }
     });
-    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/controller.html');
+    res.sendFile('/RoverSite/rover_express_backend/controller.html');
 });
 // Serve interface
 
 server.get('/controller/get/json', function(req,res){
     res.writeHead(200,{'Content-Type': 'application/json'});
-    let resJSON= require('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/testing.json')
+    let resJSON= require('/RoverSite/rover_server/testing.json')
     let strJSON= JSON.stringify(resJSON);
     res.end(strJSON);
 });
@@ -36,7 +36,7 @@ database_contr.loadDatabase();
 
 //used to visualise data retrieved by rover
 server.get('rover.html',function(req,res){
-    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/rover.html');
+    res.sendFile('/RoverSite/rover_express_backend/rover.html');
 });
 
 //this is to get the latest entry of controller
