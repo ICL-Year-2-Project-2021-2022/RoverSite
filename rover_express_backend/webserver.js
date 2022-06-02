@@ -56,7 +56,22 @@ server.get('/rover/get/json', function(req,res){
         // res.json(data);
         // console.log(data);
     // })
+}); 
+
+//control images
+server.get('/assets/forward.png', function(req,res){
+    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/assets/forward.png');
 });
+server.get('/assets/backward.png', function(req,res){
+    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/assets/backward.png');
+}); 
+server.get('/assets/clockwise.png', function(req,res){
+    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/assets/clockwise.png');
+});
+server.get('/assets/anticlockwise.png', function(req,res){
+    res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/assets/anticlockwise.png');
+});
+    
     
     
     
