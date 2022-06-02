@@ -19,13 +19,13 @@ server.get('/',function(req,res){
           console.log("File removed:", 'data_controller.db');
         }
     });
-    res.sendFile('/RoverSite/rover_server/controller.html');
+    res.sendFile('/home/ubuntu/RoverSite/rover_server/controller.html');
 });
 // Serve interface
 
 server.get('/controller/get/json', function(req,res){
     res.writeHead(200,{'Content-Type': 'application/json'});
-    let resJSON= require('/RoverSite/rover_server/testing.json')
+    let resJSON= require('/home/ubuntu/RoverSite/rover_server/testing.json')
     let strJSON= JSON.stringify(resJSON);
     res.end(strJSON);
 });
@@ -36,7 +36,7 @@ database_contr.loadDatabase();
 
 //used to visualise data retrieved by rover
 server.get('rover.html',function(req,res){
-    res.sendFile('/RoverSite/rover_server/rover.html');
+    res.sendFile('/home/ubuntu/RoverSite/rover_server/rover.html');
 });
 
 //this is to get the latest entry of controller
