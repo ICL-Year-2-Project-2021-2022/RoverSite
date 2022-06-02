@@ -18,7 +18,7 @@
         
 
         <script>
-            let url = 'http://54.224.62.48:3000/controller/post/json';
+            let url = 'http://127.0.0.1:3000/controller/post/json';
             let buttondown= false;
             var id=0;
             var wrapper = document.getElementById('counter');
@@ -36,7 +36,7 @@
                         update(); 
                         id = id+1;
                     }
-                },500);
+                },100);
                 
             function update(){
                 var data = { 'id': id, 'countfor':countfor, 'countback': countback, 'countleft': countleft, 'countright': countright};

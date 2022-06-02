@@ -1,4 +1,6 @@
 var express = require('express');
+//for file remove
+var fs = require("fs");
 var server = express();
 var bodyParser= require('body-parser');
 var htmlParser = require('node-html-parser');
@@ -10,6 +12,13 @@ server.use(bodyParser.urlencoded({extended:true}));
 
 
 server.get('/',function(req,res){
+    fs.unlink('data_controller.db', function (err) {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log("File removed:", 'data_controller.db');
+        }
+    });
     res.sendFile('/home/marcochan/Desktop/Github_MarsRover/RoverSite/rover_express_backend/controller.html');
 });
 // Serve interface
