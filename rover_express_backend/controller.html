@@ -19,17 +19,17 @@
         </div>
         <div style = "position:absolute; left:20px; top:150px" class="button"> 
             <!-- <button onmousedown="startleft()" onmouseup="endleft()">Left</button> -->
-            <input type="image" src="/assets/anticlockwise.png" alt = "Left" width=50 height=50 onmousedown="startfor()" onmouseup="endfor()"/>
+            <input type="image" src="/assets/anticlockwise.png" alt = "Left" width=50 height=50 onmousedown="startleft()" onmouseup="endleft()"/>
         </div>
         <div style = "position:absolute; left:80px; top:150px" class="button"> 
             <!--<button onmousedown="startback()" onmouseup="endback()">Backward</button> -->
-            <input type="image" src="/assets/backward.png" alt = "Backward" width=50 height=50 onmousedown="startfor()" onmouseup="endfor()"/>
+            <input type="image" src="/assets/backward.png" alt = "Backward" width=50 height=50 onmousedown="startback()" onmouseup="endback()"/>
         </div>
         <div style = "position:absolute; left:140px; top:150px" class="button"> 
             <!-- <button onmousedown="startright()" onmouseup="endright()">Right</button> -->
-            <input type="image" src="/assets/clockwise.png" alt = "Right" width=50 height=50 onmousedown="startfor()" onmouseup="endfor()"/>
+            <input type="image" src="/assets/clockwise.png" alt = "Right" width=50 height=50 onmousedown="startright()" onmouseup="endright()"/>
         </div>
-        <!--<p id="counter"></p>  for printing numebr iteration-->
+        <p id="counter"></p>
         
 
         <script>
@@ -51,7 +51,7 @@
                         update(); 
                         id = id+1;
                     }
-                },100);
+                },200);
                 
             function update(){
                 var data = { 'id': id, 'countfor':countfor, 'countback': countback, 'countleft': countleft, 'countright': countright};
