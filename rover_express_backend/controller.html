@@ -14,7 +14,7 @@
         <h2>Control the robot</h2>
         <div style = "position:absolute; left:80px; top:90px" class="button"> 
             <!--<button onmousedown="startfor()" onmouseup="endfor()">Forward</button><br>-->
-            <input type="image" src="/assets/forward.png" alt = "Forward" width=50 height=50 onmousedown="startfor()" onmousedown="changeColor()" onmouseup="endfor()"/><br>
+            <input type="image" src="/assets/forward.png" alt = "Forward" width=50 height=50 onmousedown="startfor()" onmouseup="endfor()"/><br>
             
         </div>
         <div style = "position:absolute; left:20px; top:150px" class="button"> 
@@ -122,13 +122,6 @@
                 buttondown=false;
                 clearInterval(counter);
             }
-
-
-            //styling
-
-            function changeColor() {
-                document.getElementById("id").style.color = "grey";
-            }  
 
         </script>
 
