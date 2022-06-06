@@ -110,17 +110,14 @@ function KeyboardInput () {
         })
     })
 
-    return (/*
-        <div className="ag-theme-alpine" style={{height: 400, width: 600}}>
-            <AgGridReact
-                rowData={rowData}
-                colDef={colDef}>
-            </AgGridReact>
-        </div>*/
-        <div className="ag-theme-alpine" style={{height: 400, width: 600}}>
-            <AgGridReact
+    /*
+    <AgGridReact
                 rowData={rowData}
                 colDef={colDef} />
+    */
+
+    return (
+        <div className="ag-theme-alpine" style={{height: 400, width: 600}}>
             <p>test</p>
         </div>
     );
