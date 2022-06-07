@@ -1,14 +1,16 @@
+
+import React from 'react';
 import './App.css';
-import {KeyboardInput} from "./Components/KeyboardInput.js"
-import React from 'react'
-import ReactDOM from 'react-dom'
+import {Grid} from './Components/Grid'
+
+const arrOfObj = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 function App() {
-
+  
   return (
+    
     <div className="App">
-      <KeyboardInput />
-      <p>Hello world</p>
+    <Grid arrOfObj={arrOfObj}/>
     </div>
   );
 }
