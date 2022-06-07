@@ -39,8 +39,8 @@ code {
 
   /* Numbers define values that will be used throughout the CSS.
   --tile-size: 20px for example will set size of the grid squares. */
-  --cols: 10;
-  --rows: 18;
+  --cols: 100;
+  --rows: 100;
   --tile-size: 20px;
   --border-width: 5px;
 }
@@ -96,4 +96,15 @@ code {
 
 * {
   box-sizing: border-box;
+}
+
+/* Score Board */
+.score-board-button {
+  display: block;
+  padding: 1em;
+  border-width: 5px;
+  border-top-color: var(--button-color-t);
+  border-left-color: var(--button-color-l);
+  border-right-color: var(--button-color-r);
+  border-bottom-color: var(--button-color-b);
 }
