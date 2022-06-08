@@ -6,6 +6,8 @@ const htmlParser = require('node-html-parser');
 const Datastore = require('nedb');
 const cors = require('cors');
 const {response} = require('express');
+const resJSON = require("./data/testing");
+const resMapJSON = require('./data/map.json');
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(cors({origin: '*'}));
@@ -18,7 +20,7 @@ server.get('/', function (req, res) {
 
 server.get('/controller/get/json', function (req, res) {
     res.writeHead(200, {'Content-Type': 'application/json'});
-    let resJSON = require('./data/testing')
+    let resJSON = require('./data/testing.json')
     let strJSON = JSON.stringify(resJSON);
     res.end(strJSON);
 });
@@ -79,6 +81,34 @@ server.post('/controller/post/json', function (req, res) {
 //     let jsonTree= JSON.parse();
 //     res.writeHead(200, {'Content-Type':'application/json'})
 // });
+
+const database_map = new Datastore('data/map.db');
+database_map.loadDatabase();
+database_map.remove({}, { multi: true }, (err, numRemoved) => console.error('problem clearing DB: ' + err));
+let mapId = 0;
+
+server.get('/controller/map', (req, res) => {
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    database_map.find({}).sort({id: -1}).limit(1).exec((err, data) => {
+        console.log(data);
+        res.end(JSON.stringify(data));
+    });
+});
+
+server.post('/rover/map', (req, res) => {
+    console.log("/rover/map message received");
+    const dbRecord = {
+        id: mapId,
+        height: parseInt(req.body.map_height),
+        width: parseInt(req.body.map_width),
+        data: req.body.data.split(',').map(str => parseInt(str.replace('"','')))
+    };
+    database_map.insert(dbRecord);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    const strJSON = JSON.stringify({"message": "success"});
+    mapId++;
+    res.end(strJSON);
+});
 
 server.listen(5000, "0.0.0.0");
 console.log("Listening on port " + 5000);
