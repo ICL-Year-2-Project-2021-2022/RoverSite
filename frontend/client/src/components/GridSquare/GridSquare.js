@@ -1,4 +1,5 @@
 import React from 'react'
+import './GridSquare.css'
 
 // Represents a grid square with a color
 

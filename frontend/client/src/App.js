@@ -1,7 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
 
-import GridBoard from './components/GridBoard'
+import GridBoard from './components/GridBoard/GridBoard'
 import Telemetry from './components/Telemetry'
 
 function App() {
