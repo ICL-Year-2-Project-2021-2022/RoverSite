@@ -43,7 +43,7 @@
 
 .container {
   display: grid;
-  grid-template-columns: 10rem 10rem 10rem;
+  padding: 16px;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
-  grid-auto-flow: row;
 }

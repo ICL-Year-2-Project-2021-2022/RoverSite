@@ -7,7 +7,6 @@ const Datastore = require('nedb');
 const cors = require('cors');
 const {response} = require('express');
 const resJSON = require("./data/testing");
-const resMapJSON = require('./data/map.json');
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(cors({origin: '*'}));
@@ -25,7 +24,7 @@ server.get('/controller/get/json', function (req, res) {
     res.end(strJSON);
 });
 
-const database_contr = new Datastore('data_controller.db');
+const database_contr = new Datastore('./data/data_controller.db');
 database_contr.loadDatabase();
 //load the existing database into memory. If it isn't such a database, it will create a new one
 
@@ -38,7 +37,6 @@ server.get('rover.html', function (req, res) {
 server.get('/rover/get/json', function (req, res) {
     database_contr.find({}).sort({id: -1}).limit(1).exec(function (err, data) {
         res.json(data);
-        console.log(data);
     });
 
     // database_contr.count({}, function (err, count){ 
@@ -74,23 +72,45 @@ server.post('/controller/post/json', function (req, res) {
 
 });
 
+const commandsDatabase = new Datastore('./data/command.db');
+commandsDatabase.loadDatabase();
+commandsDatabase.remove({}, {multi: true}, (err, numRemoved) => console.error('problem clearing DB: ' + err));
+let commandOrder = 0;
 
-// server.post('controller/post/json', function(req,res){
-//     const jsonData = req.body;
-//     const responseContent = ""
-//     let jsonTree= JSON.parse();
-//     res.writeHead(200, {'Content-Type':'application/json'})
-// });
+server.post('/controller/command', (req, res) => {
+    console.log('/controller/command');
+    const command = req.body;
+    command.order = commandOrder;
+    commandOrder++;
+    commandsDatabase.insert(command);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end(JSON.stringify({message: "Command received"}));
+});
 
-const database_map = new Datastore('data/map.db');
+server.post('/rover/command', (req, res) => {
+    console.log('/controller/command');
+    console.log(req.body);
+    const order = parseInt(req.body.order);
+    console.log(order);
+    commandsDatabase.find({order: {$gt: order}}).sort({order: 1}).limit(1).exec((errs, docs) => {
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        console.log(docs);
+        if (docs[0]) {
+            res.end(JSON.stringify(docs[0]));
+        } else {
+            res.end({message: "No command found"});
+        }
+    });
+});
+
+const database_map = new Datastore('./data/map.db');
 database_map.loadDatabase();
-database_map.remove({}, { multi: true }, (err, numRemoved) => console.error('problem clearing DB: ' + err));
+database_map.remove({}, {multi: true}, (err, numRemoved) => console.error('problem clearing DB: ' + err));
 let mapId = 0;
 
 server.get('/controller/map', (req, res) => {
     res.writeHead(200, {'Content-Type': 'application/json'});
     database_map.find({}).sort({id: -1}).limit(1).exec((err, data) => {
-        console.log(data);
         res.end(JSON.stringify(data));
     });
 });
@@ -101,7 +121,7 @@ server.post('/rover/map', (req, res) => {
         id: mapId,
         height: parseInt(req.body.map_height),
         width: parseInt(req.body.map_width),
-        data: req.body.data.split(',').map(str => parseInt(str.replace('"','')))
+        data: req.body.data.split(',').map(str => parseInt(str.replace('"', '')))
     };
     database_map.insert(dbRecord);
     res.writeHead(200, {'Content-Type': 'application/json'});

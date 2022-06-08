@@ -19,7 +19,7 @@ const toGridComponents = gridData => {
             row.push(<GridSquare key={`${col}${rowIndex}`}
                                  color={gridData.data[gridData.width * rowIndex + col].toString()}/>);
         }
-        gridRows.push(<GridRow row={row}/>);
+        gridRows.push(<GridRow row={row} key={`row-${rowIndex}`}/>);
     }
     return gridRows;
 };
@@ -27,34 +27,17 @@ const toGridComponents = gridData => {
 export default function GridBoard(props) {
     const [grid, setGrid] = useState({width: 0, height: 0, data: []});
 
-    // requests/receives json from backend every interval
-    const period = 1000;
-    useEffect(() => {
-        const interval = setInterval(() => {
-            const URL = "http://localhost:5000/controller/post/json";
-            axios.post(URL, {
-                "id": 3,
-                "countfor": 4,
-                "countback": 4,
-                "countleft": 4,
-                "countright": 3
-            })
-                .then(data => {
-                    //setBoard(data)
-                    //console.log(data)
-                })
-                .catch(err => console.log(err));
-        }, period);
-
-        return () => clearInterval(interval);
-    }, []);
-
     useEffect(() => {
         const interval = setInterval(() => {
             const URL = "http://localhost:5000/controller/map";
             axios.get(URL)
                 .then(res => {
-                    setGrid(res.data[0]);
+                    const resGrid = res.data[0];
+                    if (resGrid) {
+                        setGrid(resGrid);
+                    } else {
+                        setGrid(gridDataJSON);
+                    }
                 })
                 .catch(err => console.log(err));
         }, 10);
