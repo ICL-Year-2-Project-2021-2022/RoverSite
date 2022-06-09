@@ -7,13 +7,11 @@ export default function RoverController(props) {
     const [rightRotation, setRightRotation] = useState(0);
     const [moveForward, setMoveForward] = useState(0);
     const [moveBack, setMoveBack] = useState(0);
+    const [driveMode, setDriveMode] = useState("Control");
 
     const handleSend = event => {
         const command = {
-            leftRotation: leftRotation,
-            rightRotation: rightRotation,
-            moveForward: moveForward,
-            moveBack: moveBack
+            driveMode, leftRotation, rightRotation, moveForward, moveBack
         };
         const URL = 'http://localhost:5000/controller/command';
         axios.post(URL, command).then(console.log);
@@ -22,6 +20,11 @@ export default function RoverController(props) {
     return <div>
         <h2>Control</h2>
         <div>
+            <label>Drive mode</label>
+            <div onChange={event => setDriveMode(event.target.value)}>
+                <input type="radio" value="Control" name="drive-mode" defaultChecked={driveMode === "Control"}/> Controlled
+                <input type="radio" value="Autonomous" name="drive-mode" defaultChecked={driveMode === "Autonomous"}/> Autonomous
+            </div>
             <div>
                 <label htmlFor="rotate-left">Rotate left:</label>
                 <input id="rotate-left" type="number" value={leftRotation}
