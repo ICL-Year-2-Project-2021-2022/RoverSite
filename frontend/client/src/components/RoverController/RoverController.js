@@ -3,15 +3,15 @@ import axios from 'axios';
 import './RoverController.css'
 
 export default function RoverController(props) {
-    const [leftRotation, setLeftRotation] = useState(0);
-    const [rightRotation, setRightRotation] = useState(0);
+    const [rotateLeft, setRotateLeft] = useState(0);
+    const [rotateRight, setRotateRight] = useState(0);
     const [moveForward, setMoveForward] = useState(0);
     const [moveBack, setMoveBack] = useState(0);
     const [driveMode, setDriveMode] = useState("Control");
 
     const handleSend = event => {
         const command = {
-            driveMode, leftRotation, rightRotation, moveForward, moveBack
+            driveMode, rotateLeft, rotateRight, moveForward, moveBack
         };
         const URL = 'http://localhost:5000/controller/command';
         axios.post(URL, command).then(console.log);
@@ -27,13 +27,13 @@ export default function RoverController(props) {
             </div>
             <div>
                 <label htmlFor="rotate-left">Rotate left:</label>
-                <input id="rotate-left" type="number" value={leftRotation}
-                       onChange={event => setLeftRotation(event.target.value)}/>
+                <input id="rotate-left" type="number" value={rotateLeft}
+                       onChange={event => setRotateLeft(event.target.value)}/>
             </div>
             <div>
                 <label htmlFor="rotate-right">Rotate right:</label>
-                <input id="rotate-right" type="number" value={rightRotation}
-                       onChange={event => setRightRotation(event.target.value)}/>
+                <input id="rotate-right" type="number" value={rotateRight}
+                       onChange={event => setRotateRight(event.target.value)}/>
             </div>
             <div>
                 <label htmlFor="move-forward">Move forward:</label>

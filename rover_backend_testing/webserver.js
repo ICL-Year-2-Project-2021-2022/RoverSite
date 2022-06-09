@@ -52,12 +52,13 @@ server.post('/rover/telemetry', (req, res) => {
         if (docs[0]) {
             res.end(JSON.stringify(docs[0]));
         } else {
-            res.end(JSON.stringify({message: "No command found"}));
+            res.end(JSON.stringify({order: -2, message: "No command found"}));
         }
     });
 });
 
 server.get('/controller/telemetry', (req, res) => {
+    console.log("telemetry");
     res.writeHead(200, {'Content-Type': 'application/json'});
     database_telemetry.find({}).sort({order: -1}).limit(1).exec((err, data) => {
         res.end(JSON.stringify(data));

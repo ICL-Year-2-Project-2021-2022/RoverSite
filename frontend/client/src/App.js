@@ -24,7 +24,7 @@ function App() {
     const [telemetry, setTelemetry] = useState({map:{}, status: {}});
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
+        const inteval = setInterval(() => {
             const URL = "http://localhost:5000/controller/telemetry";
             axios.get(URL)
                 .then(res => {
@@ -36,7 +36,7 @@ function App() {
                 .catch(err => console.log(err));
         }, 100);
 
-        return () => clearTimeout(timeout);
+        return () => clearInterval(inteval);
     });
 
     return (
