@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset = "UTF-8"/>
+        <meta name="viewport" content = "width=device-width, initial-scale =1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Rover Data</title>
+    </head>
+    <body>
+        <h1>Rover Data Get</h1>
+        <script>
+            getData();
+            async function getData(){
+                const reponse = await fetch('/rover/get/json');
+                const data = await reponse.json();
+                console.log(data);
+
+            }
+        </script>
+    </body>
+</html>
