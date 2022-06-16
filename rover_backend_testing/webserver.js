@@ -29,7 +29,8 @@ database_telemetry.remove({}, {multi: true}, (err, numRemoved) => console.error(
 let telemetryOrder = 0;
 
 server.post('/rover/telemetry', (req, res) => {
-    console.log("/rover/telemetry message received");
+    const currentDateTime = new Date();
+    console.log("/rover/telemetry message received: " + currentDateTime);
     const dbRecord = {
         order: telemetryOrder,
         map: {
