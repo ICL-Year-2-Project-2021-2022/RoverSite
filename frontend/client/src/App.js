@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './App.css';
+import { createRoot } from 'react-dom/client';
+import { Stage, Layer, Rect, Text, Circle, Line } from 'react-konva';
 
 import GridBoard from './components/GridBoard/GridBoard'
 import Telemetry from './components/Telemetry'
