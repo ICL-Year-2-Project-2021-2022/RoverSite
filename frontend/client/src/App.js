@@ -19,10 +19,7 @@ const dummyTelemetryData = {
 };
 
 function App() {
-    const [telemetry, setTelemetry] = useState({map:[
-        {"x" : 100, "y": 100, "rad": 20, "type":"obstacle"},
-        {"x": 200, "y":200, "rad":30, "type":"alien"}
-    ], status: {}});
+    const [telemetry, setTelemetry] = useState({map:[], status: {}});
 
     useEffect(() => {
         const inteval = setInterval(() => {
