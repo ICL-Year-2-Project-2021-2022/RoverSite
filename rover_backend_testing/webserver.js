@@ -31,6 +31,8 @@ let telemetryOrder = 0;
 server.post('/rover/telemetry', (req, res) => {
     const currentDateTime = new Date();
     console.log("/rover/telemetry message received: " + currentDateTime);
+    console.log(req.body.kalmanState);
+    console.log(req.body.kalmanVariances);
     const dbRecord = {
         order: telemetryOrder,
         map: {
