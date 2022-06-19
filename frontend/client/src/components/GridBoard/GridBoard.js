@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stage, Layer, Circle } from 'react-konva';
+import { Stage, Layer, Circle, Rect } from 'react-konva';
 
 
 export default function GridBoard(map) {
@@ -14,9 +14,18 @@ export default function GridBoard(map) {
         }
     }
     return(
-        <Stage width={1000} height={1000} strokeWidth = {2} stroke="black">
+        <Stage width={1000} height={1000}>
             <Layer>
-            {elements}
+                <Rect
+                    x={0}
+                    y={0}
+                    width={1000}
+                    height={1000}
+                    // here i need a border
+                    strokeWidth={5} // border width
+                    stroke="black" // border color
+                />
+                {elements}
             </Layer>
       </Stage>
     )
