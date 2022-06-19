@@ -1,19 +1,16 @@
 import React from 'react'
-import { Stage, Layer, Circle, Rect } from 'react-konva';
+import {Circle, Layer, Rect, Stage} from 'react-konva';
 
 
-export default function GridBoard(map) {
-    let elements = []
-    let objects = map.map
-    for (let i = 0; i < objects.length; i++) {
-        if(objects[i]["type"] === "alien") {
-            elements.push(<Circle x={objects[i]["x"]} y={objects[i]["y"]} radius={objects[i]["rad"]} fill="green" />)
-        }
-        if(objects[i]["type"] === "obstacle") {
-            elements.push(<Circle x={objects[i]["x"]} y={objects[i]["y"]} radius={objects[i]["rad"]} fill="red" />)
-        }
-    }
-    return(
+export default function GridBoard({map}) {
+    const elements = [];
+    const objects = map;
+    objects.forEach(obj => {
+        elements.push(<Circle x={obj.x} y={obj.y} radius={obj.radius} fill={obj.colourUncertainty}/>);
+        elements.push(<Circle x={obj.x} y={obj.y} radius={5} fill={obj.colourFill}/>);
+    });
+
+    return (
         <Stage width={1000} height={1000}>
             <Layer>
                 <Rect
@@ -27,7 +24,7 @@ export default function GridBoard(map) {
                 />
                 {elements}
             </Layer>
-      </Stage>
+        </Stage>
     )
 }
 

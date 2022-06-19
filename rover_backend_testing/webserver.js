@@ -28,16 +28,67 @@ database_telemetry.loadDatabase();
 database_telemetry.remove({}, {multi: true}, (err, numRemoved) => console.error('problem clearing DB: ' + err));
 let telemetryOrder = 0;
 
+
+const objectToColourMapping = {
+    R: {
+        fill: "#880000",
+        uncertainty: "#ff0000"
+    },
+    G: {
+        fill: "#008800",
+        uncertainty: "#00ff00"
+    },
+    obst: {
+        fill: "#000000",
+        uncertainty: "#999999"
+    },
+    rover: {
+        fill: '#A32CC4',
+        uncertainty: '#E39FF6'
+    }
+};
+
+const parseKalmanStateToJSON = stateString => stateString.split(',').map(parseFloat);
+
+const parseKalmanVariancesToJSON = variancesString => variancesString.split(';').map(it => it.split(',').map(parseFloat));
+
+const constructMapFromStateAndVariances = (state, variances, landmarkTypes) => {
+    const map = [];
+    const rover = {
+        x: state[0],
+        y: state[1],
+        rotationRad: state[2],
+        radius: 2 * Math.max(Math.sqrt(variances[0][0]), Math.sqrt(variances[1][1])),
+        type: "rover",
+        colourFill: objectToColourMapping['rover'].fill,
+        colourUncertainty: objectToColourMapping['rover'].uncertainty
+    }
+    map.push(rover);
+    for (let i = 0; i < state.length - 3; i += 2) {
+        const colourMapping = objectToColourMapping[landmarkTypes[i / 2]];
+        map.push({
+            x: state[i + 3],
+            y: state[i + 4],
+            radius: 2 * Math.max(Math.sqrt(variances[i + 3][i + 3]), Math.sqrt(variances[i + 4][i + 4])),
+            type: landmarkTypes[i / 2],
+            colourFill: colourMapping.fill,
+            colourUncertainty: colourMapping.uncertainty
+        });
+    }
+    return map;
+};
+
 server.post('/rover/telemetry', (req, res) => {
     const currentDateTime = new Date();
     console.log("/rover/telemetry message received: " + currentDateTime);
+
+    const kalmanState = parseKalmanStateToJSON(req.body.kalmanState);
+    const kalmanVariances = parseKalmanVariancesToJSON(req.body.kalmanVariances);
+    const map = constructMapFromStateAndVariances(kalmanState, kalmanVariances, ['R', 'G']);
+
     const dbRecord = {
         order: telemetryOrder,
-        map: {
-            height: parseInt(req.body.mapHeight),
-            width: parseInt(req.body.mapWidth),
-            data: req.body.mapData.split(',').map(str => parseInt(str.replace('"', '')))
-        },
+        map,
         status: {
             batteryPercentage: parseInt(req.body.batteryPercentage),
             opticalFlowSensor1: parseInt(req.body.opticalFlowSensor1),
