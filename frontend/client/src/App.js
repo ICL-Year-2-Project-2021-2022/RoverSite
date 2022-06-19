@@ -58,9 +58,9 @@ function App() {
                         <Grid container spacing={2}>
                             <Grid item xs={6}>
                                 <Paper elevation={3} className={"paper-item"}>
-                                    <Telemetry averageCurrent={telemetry.averageCurrent}
+                                    <Telemetry averageCurrent={telemetry.status.averageCurrent}
                                                batteryPercentage={telemetry.status.batteryPercentage}
-                                               batteryRemaining={telemetry.batteryRemaining}
+                                               batteryRemaining={telemetry.status.batteryRemaining}
                                                opticalFlowSensor1={telemetry.status.opticalFlowSensor1}
                                                opticalFlowSensor2={telemetry.status.opticalFlowSensor2}
                                                order={telemetry.order}/>
