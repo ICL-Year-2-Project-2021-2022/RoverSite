@@ -11,13 +11,13 @@ export default function GridBoard({map}) {
     });
 
     return (
-        <Stage width={1000} height={1000}>
+        <Stage width={580} height={580}>
             <Layer>
                 <Rect
                     x={0}
                     y={0}
-                    width={1000}
-                    height={1000}
+                    width={580}
+                    height={580}
                     // here i need a border
                     strokeWidth={5} // border width
                     stroke="black" // border color

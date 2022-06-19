@@ -90,7 +90,9 @@ server.post('/rover/telemetry', (req, res) => {
         order: telemetryOrder,
         map,
         status: {
-            batteryPercentage: parseInt(req.body.batteryPercentage),
+            averageCurrent: parseFloat(req.body.averageCurrent),
+            batteryRemaining: parseFloat(req.body.batteryRemaining),
+            batteryPercentage: parseFloat(req.body.batteryPercentage),
             opticalFlowSensor1: parseInt(req.body.opticalFlowSensor1),
             opticalFlowSensor2: parseInt(req.body.opticalFlowSensor2)
         }

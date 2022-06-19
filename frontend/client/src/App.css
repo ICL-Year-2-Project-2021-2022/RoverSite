@@ -44,6 +44,26 @@
 .container {
   display: grid;
   padding: 16px;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1rem;
+}
+
+.grid-container {
+  width: 100%;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.paper-item {
+  display: flex;
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.MuiGrid-item {
+  display: flex;
+}
+
+.video-paper {
+  min-height: 300px;
 }
