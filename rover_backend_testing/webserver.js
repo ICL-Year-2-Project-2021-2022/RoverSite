@@ -7,10 +7,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(cors({origin: '*'}));
 const { MongoClient } = require('mongodb');
-// or as an es module:
-// import { MongoClient } from 'mongodb'
 
-// Connection URL
 const url = 'mongodb://127.0.0.1:27017';
 
 const client = new MongoClient(url);
@@ -24,10 +21,9 @@ async function main() {
     await client.connect();
     console.log('Connected successfully to server');
     const telemetry_db = client.db(tel_name);
-    //TODO: Clear DB
-    const collection = telemetry_db.collection('documents');
+    const collection = telemetry_db.collection('Telemetry');
     const command_db = client.db(com_name)
-    const command_collection = command_db.collection('documents')
+    const command_collection = command_db.collection('Command')
 
     let commandOrder = 0;
 
@@ -83,6 +79,22 @@ async function main() {
         database_telemetry.find({}).sort({order: -1}).limit(1).exec((err, data) => {
             res.end(JSON.stringify(data));
         });
+    });
+
+    collection.deleteMany({}, function(err, result){
+        // handle the error if any
+        if (err) throw err;
+        console.log("Collection is deleted! "+result);
+        // close the connection to db when you are done with it
+        telemetry_db.close();
+    });
+
+    command_collection.deleteMany({}, function(err, result){
+        // handle the error if any
+        if (err) throw err;
+        console.log("Collection is deleted! "+result);
+        // close the connection to db when you are done with it
+        command_db.close();
     });
 
     return 'done.';
