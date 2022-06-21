@@ -79,6 +79,7 @@ async function main() {
         });
     });
 
+    /*
     collection.deleteMany({}, function(err, result){
         // handle the error if any
         if (err) throw err;
@@ -94,8 +95,9 @@ async function main() {
         // close the connection to db when you are done with it
         command_db.close();
     });
+    */
 
-    return 'done.';
+
   }
   
 
@@ -152,7 +154,6 @@ const constructMapFromStateAndVariances = (state, variances, landmarkTypes) => {
 server.listen(5000, "0.0.0.0");
 console.log("Listening on port " + 5000);
 
-main()
-.then(console.log)
-.catch(console.error)
-.finally(() => client.close());
+do {
+    main();
+} while (true);
