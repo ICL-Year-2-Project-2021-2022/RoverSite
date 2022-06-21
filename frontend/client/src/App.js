@@ -21,10 +21,13 @@ const dummyTelemetryData = {
 
 function App() {
     const [telemetry, setTelemetry] = useState({map: [], status: {}});
-
+    let sum = 0
+    let len = 0
+    let rtt = 0
     useEffect(() => {
         const inteval = setInterval(() => {
             const URL = "http://localhost:5000/controller/telemetry";
+            let d = new Date()
             axios.get(URL)
                 .then(res => {
                     const resTelemetry = res.data[0];
@@ -33,6 +36,12 @@ function App() {
                     }
                 })
                 .catch(err => console.log(err));
+            let b = new Date()
+            sum = sum + b.getTime() - d.getTime()
+            len = len + 1
+            rtt = sum/len
+            console.log(len)
+            console.log(rtt)
         }, 100);
 
         return () => clearInterval(inteval);
