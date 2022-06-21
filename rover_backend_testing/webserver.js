@@ -61,8 +61,7 @@ async function main() {
     
         const commandOrder = parseInt(req.body.commandOrder);
 
-        //TODO: Refactor below
-        commandsDatabase.find({order: {$gt: commandOrder}}).sort({order: 1}).limit(1).exec((errs, docs) => {
+        command_collection.find({order: {$gt: commandOrder}}).sort({order: 1}).limit(1).exec((errs, docs) => {
             res.writeHead(200, {'Content-Type': 'application/json'});
             if (docs[0]) {
                 res.end(JSON.stringify(docs[0]));
@@ -75,8 +74,7 @@ async function main() {
     server.get('/controller/telemetry', (req, res) => {
         console.log("telemetry");
         res.writeHead(200, {'Content-Type': 'application/json'});
-        //TODO: Refactor below
-        database_telemetry.find({}).sort({order: -1}).limit(1).exec((err, data) => {
+        collection.find({}).sort({order: -1}).limit(1).exec((err, data) => {
             res.end(JSON.stringify(data));
         });
     });
