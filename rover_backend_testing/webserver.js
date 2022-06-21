@@ -32,7 +32,7 @@ async function main() {
         const command = req.body;
         command.order = commandOrder;
         commandOrder++;
-        await command_db.insertOne(command);
+        command_db.insertOne(command);
         res.writeHead(200, {'Content-Type': 'application/json'});
         res.end(JSON.stringify({message: "Command received"}));
     });
@@ -56,7 +56,7 @@ async function main() {
                 opticalFlowSensor2: parseInt(req.body.opticalFlowSensor2)
             }
         };
-        await telemetry_db.insertOne(dbRecord);
+        telemetry_db.insertOne(dbRecord);
         telemetryOrder++;
     
         const commandOrder = parseInt(req.body.commandOrder);
