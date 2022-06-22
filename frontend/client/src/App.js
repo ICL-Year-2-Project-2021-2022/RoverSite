@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import './App.css';
 import Grid from '@mui/material/Grid';
@@ -25,6 +25,8 @@ const dummyTelemetryData = {
 
 function App() {
     const [telemetry, setTelemetry] = useState({map: [], status: {}});
+    const [mapSize, setMapSize] = useState({height: 500, width: 500});
+    const slamMapPaper = useRef(null);
 
     useEffect(() => {
         const inteval = setInterval(() => {
@@ -39,9 +41,12 @@ function App() {
                 .catch(err => console.log(err));
         }, 100);
 
+        if (mapSize.height !== slamMapPaper.current.offsetHeight - 32 || mapSize.width !== slamMapPaper.current.offsetWidth - 32) {
+            setMapSize({height: slamMapPaper.current.offsetHeight - 32, width: slamMapPaper.current.offsetWidth - 32});
+        }
         return () => clearInterval(inteval);
-    });
-
+    }, [telemetry, mapSize]);
+    //
     return (
         <div className="App">
             <header className="App-header">
@@ -49,9 +54,11 @@ function App() {
             </header>
             <div className="container">
                 <Grid container spacing={2} className={"grid-container"}>
-                    <Grid item lg={6} xs={12}>
+                    <Grid item lg={6} xs={12}  ref={slamMapPaper}>
                         <Paper elevation={3} className={"paper-item"}>
-                            <GridBoard map={telemetry.map}/>
+                            <GridBoard map={telemetry.map}
+                                       paperHeight={mapSize.height}
+                                       paperWidth={mapSize.width}/>
                         </Paper>
                     </Grid>
                     <Grid item lg={6} xs={12}>

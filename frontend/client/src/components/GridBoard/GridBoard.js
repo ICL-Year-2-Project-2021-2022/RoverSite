@@ -2,7 +2,7 @@ import React from 'react'
 import {Circle, Layer, Rect, Stage} from 'react-konva';
 
 
-export default function GridBoard({map}) {
+export default function GridBoard({map, paperHeight, paperWidth}) {
     const elements = [];
     const objects = map;
     objects.forEach(obj => {
@@ -11,13 +11,13 @@ export default function GridBoard({map}) {
     });
 
     return (
-        <Stage width={580} height={580}>
+        <Stage width={paperWidth} height={paperHeight}>
             <Layer>
                 <Rect
                     x={0}
                     y={0}
-                    width={580}
-                    height={580}
+                    width={paperWidth}
+                    height={paperHeight}
                     // here i need a border
                     strokeWidth={5} // border width
                     stroke="black" // border color
