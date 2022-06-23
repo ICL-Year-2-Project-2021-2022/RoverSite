@@ -19,7 +19,7 @@ export default function RoverController(props) {
         axios.post(URL, command).then(console.log);
     };
 
-    return <div className={"rover-controller"}>
+    return <div className={"rover-controller"} style={{marginLeft:'auto', marginRight:'auto'}}>
         <h2>Control</h2>
         <div>
             <label>Drive mode</label>
