@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import GridBoard from './components/GridBoard/GridBoard'
 import Telemetry from './components/Telemetry/Telemetry'
 import RoverController from "./components/RoverController/RoverController";
+import useWindowDimensions from './useWindowDimensions';
 
 const dummyTelemetryData = {
     order: 1,
@@ -25,8 +26,7 @@ const dummyTelemetryData = {
 
 function App() {
     const [telemetry, setTelemetry] = useState({map: [], status: {}});
-    const [mapSize, setMapSize] = useState({height: 500, width: 500});
-    const slamMapPaper = useRef(null);
+    const { height, width, boardHeight, boardWidth } = useWindowDimensions();
 
     useEffect(() => {
         const inteval = setInterval(() => {
@@ -40,12 +40,8 @@ function App() {
                 })
                 .catch(err => console.log(err));
         }, 100);
-
-        if (mapSize.height !== slamMapPaper.current.offsetHeight - 32 || mapSize.width !== slamMapPaper.current.offsetWidth - 32) {
-            setMapSize({height: slamMapPaper.current.offsetHeight - 32, width: slamMapPaper.current.offsetWidth - 32});
-        }
         return () => clearInterval(inteval);
-    }, [telemetry, mapSize]);
+    }, [telemetry]);
     //
     return (
         <div className="App">
@@ -54,16 +50,16 @@ function App() {
             </header>
             <div className="container">
                 <Grid container spacing={2} className={"grid-container"}>
-                    <Grid item lg={6} xs={12}  ref={slamMapPaper}>
+                    <Grid item md={6} xs={12} >
                         <Paper elevation={3} className={"paper-item"}>
                             <GridBoard map={telemetry.map}
-                                       paperHeight={mapSize.height}
-                                       paperWidth={mapSize.width}/>
+                                       paperHeight={boardHeight}
+                                       paperWidth={boardWidth}/>
                         </Paper>
                     </Grid>
-                    <Grid item lg={6} xs={12}>
+                    <Grid item md={6} xs={12}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
+                            <Grid item sm={6} xs={12}>
                                 <Paper elevation={3} className={"paper-item"}>
                                     <Telemetry averageCurrent={telemetry.status.averageCurrent}
                                                batteryPercentage={telemetry.status.batteryPercentage}
@@ -73,7 +69,7 @@ function App() {
                                                order={telemetry.order}/>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item sm={6} xs={12}>
                                 <Paper elevation={3} className={"paper-item"}>
                                     <RoverController/>
                                 </Paper>
