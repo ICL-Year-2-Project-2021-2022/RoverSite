@@ -7,6 +7,7 @@ import GridBoard from './components/GridBoard/GridBoard'
 import Telemetry from './components/Telemetry/Telemetry'
 import RoverController from "./components/RoverController/RoverController";
 import useWindowDimensions from './useWindowDimensions';
+import sexypic from "./aliens.jpeg"
 
 const dummyTelemetryData = {
     order: 1,
@@ -26,17 +27,16 @@ const dummyTelemetryData = {
 
 function App() {
     const [telemetry, setTelemetry] = useState({map: [
-        {x: 100, y: 100, rad: 20, type: "obstacle"},
-        {x: 200, y: 200, rad: 30, type: "alien"},
-        {x: 170, y: 100, rad: 20, type: "obstacle"},
-        {x: 50, y: 50, rad: 30, type: "alien"},
-        {x: 300, y: 300, rad: 5, rotation: 90, type: "rover"}
+        {x: 450, y: 400, rad: 50, type: "obstacle"},
+        {x: 170, y: 100, rad: 50, type: "obstacle"},
+        {x: 50, y: 50, rad: 50, type: "alien"},
+        {x: 500, y: 500, rad: 5, rotation: 90, type: "rover"}
     ], status: {
         averageCurrent: 500,
         batteryPercentage: 50,
         batteryRemaining: 2500,
         opticalFlowSensor1: 123,
-        opticalFlowSensor2: 456
+        opticalFlowSensor2: 119
     }});
     const { height, width, boardHeight, boardWidth } = useWindowDimensions();
 
@@ -88,7 +88,7 @@ function App() {
                             </Grid>
                             <Grid item xs={12}>
                                 <Paper elevation={3} className={"paper-item video-paper"}>
-                                    Photo
+                                    <img src={sexypic} alt="FPGA Image" width = "100%" />
                                 </Paper>
                             </Grid>
                         </Grid>
