@@ -25,7 +25,19 @@ const dummyTelemetryData = {
 };
 
 function App() {
-    const [telemetry, setTelemetry] = useState({map: [], status: {}});
+    const [telemetry, setTelemetry] = useState({map: [
+        {x: 100, y: 100, rad: 20, type: "obstacle"},
+        {x: 200, y: 200, rad: 30, type: "alien"},
+        {x: 170, y: 100, rad: 20, type: "obstacle"},
+        {x: 50, y: 50, rad: 30, type: "alien"},
+        {x: 300, y: 300, rad: 5, rotation: 90, type: "rover"}
+    ], status: {
+        averageCurrent: 500,
+        batteryPercentage: 50,
+        batteryRemaining: 2500,
+        opticalFlowSensor1: 123,
+        opticalFlowSensor2: 456
+    }});
     const { height, width, boardHeight, boardWidth } = useWindowDimensions();
 
     useEffect(() => {
