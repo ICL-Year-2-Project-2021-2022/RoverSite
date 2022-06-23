@@ -21,13 +21,13 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
     let objects = map
     for (let i = 0; i < objects.length; i++) {
         if(objects[i]["type"] === "alien") {
-            elements.push(<Image image={redPic} x={objects[i]["x"]/672*436} y={objects[i]["y"]/672*436} height={objects[i]["rad"]*2/672*436} width={objects[i]["rad"]*2/672*436} />)
+            elements.push(<Image image={redPic} x={objects[i]["x"]} y={objects[i]["y"]} height={objects[i]["rad"]*2} width={objects[i]["rad"]*2} />)
         }
         if(objects[i]["type"] === "obstacle") {
-            elements.push(<Image image={obstaclePic} x={objects[i]["x"]/672*436} y={objects[i]["y"]/672*436} height={objects[i]["rad"]*2/672*436} width={objects[i]["rad"]*2/672*436} />)
+            elements.push(<Image image={obstaclePic} x={objects[i]["x"]} y={objects[i]["y"]} height={objects[i]["rad"]*2} width={objects[i]["rad"]*2} />)
         }
         if(objects[i]["type"] === "rover") {
-            elements.push(<Image image={roverPic} x={objects[i]["x"]/672*436} y={objects[i]["y"]/672*436} height={100/672*436} width={100/672*436} />)
+            elements.push(<Image image={roverPic} x={objects[i]["x"]} y={objects[i]["y"]} height={100} width={100} />)
         }
     }
     return (
@@ -43,13 +43,22 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
                     stroke="black" // border color
                 />
                 {elements}
-                <Image image={greenPic} x={300/672*436} y={450/672*436} height={100/672*436} width={100/672*436} />
-                <Image image={yellowPic} x={380/672*436} y={200/672*436} height={100/672*436} width={100/672*436} />
-                <Image image={bluePic} x={515/672*436} y={20/672*436} height={100/672*436} width={100/672*436} />
-                <Image image={pinkPic} x={20/672*436} y={540/672*436} height={100/672*436} width={100/672*436} />
-                <Image image={obstaclePic} x={550/672*436} y={300/672*436} height={100/672*436} width={100/672*436} />
-                <Image image={obstaclePic} x={20/672*436} y={400/672*436} height={100/672*436} width={100/672*436} />
-                <Ellipse x={100} y={100} radius={{x:50,y:200}} zIndex={2} />
+                <Image image={greenPic} x={300} y={450} height={100} width={100} />
+                <Image image={yellowPic} x={380} y={200} height={100} width={100} />
+                <Image image={bluePic} x={515} y={20} height={100} width={100} />
+                <Image image={pinkPic} x={20} y={540} height={100} width={100} />
+                <Image image={obstaclePic} x={550} y={300} height={100} width={100} />
+                <Image image={obstaclePic} x={20} y={400} height={100} width={100} />
+                <Ellipse x={100} y={100} radius={{x:100,y:50}} fill="red" opacity={0.2} />
+                <Ellipse x={218} y={150} radius={{x:70,y:100}} fill="gray" opacity={0.4} />
+                <Ellipse x={428} y={240} radius={{x:100 ,y:100}} fill="yellow" opacity={0.35} />
+                <Ellipse x={570} y={80} radius={{x:130 ,y:70}} fill="blue" opacity={0.35} rotation={30}/>
+                <Ellipse x={70} y={445} radius={{x:70,y:40}} fill="gray" opacity={0.4} rotation={-30}/>
+                <Ellipse x={70} y={590} radius={{x:70,y:60}} fill="pink" opacity={0.6} />
+                <Ellipse x={350} y={500} radius={{x:80,y:60}} fill="green" opacity={0.3} rotation={75} />
+                <Ellipse x={500} y={445} radius={{x:70,y:20}} fill="gray" opacity={0.4} rotation={-60}/>
+                <Ellipse x={600} y={345} radius={{x:70,y:30}} fill="gray" opacity={0.4} rotation={60}/>
+                <Ellipse x={551} y={548} radius={{x:70,y:80}} fill="cyan" opacity={0.4} rotation={60}/>
             </Layer>
         </Stage>
     )
