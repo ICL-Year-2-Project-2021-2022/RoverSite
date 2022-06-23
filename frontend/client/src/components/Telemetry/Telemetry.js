@@ -3,7 +3,7 @@ import './Telemetry.css'
 
 export default function Telemetry(props) {
     return (
-        <div className="score-board">
+        <div className="score-board" style={{marginLeft:'auto', marginRight:'auto'}}>
             <h2>Telemetry</h2>
             <div>Packet order: {props.order}</div>
             <div>Average current: {props.averageCurrent} mA</div>
