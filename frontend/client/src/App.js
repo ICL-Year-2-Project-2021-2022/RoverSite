@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import './App.css';
 import Grid from '@mui/material/Grid';
@@ -6,6 +6,8 @@ import Paper from '@mui/material/Paper';
 import GridBoard from './components/GridBoard/GridBoard'
 import Telemetry from './components/Telemetry/Telemetry'
 import RoverController from "./components/RoverController/RoverController";
+import useWindowDimensions from './useWindowDimensions';
+import sexypic from "./aliens.jpeg"
 
 const dummyTelemetryData = {
     order: 1,
@@ -24,7 +26,19 @@ const dummyTelemetryData = {
 };
 
 function App() {
-    const [telemetry, setTelemetry] = useState({map: [], status: {}});
+    const [telemetry, setTelemetry] = useState({map: [
+        {x: 450, y: 400, rad: 50, type: "obstacle"},
+        {x: 170, y: 100, rad: 50, type: "obstacle"},
+        {x: 50, y: 50, rad: 50, type: "alien"},
+        {x: 500, y: 500, rad: 5, rotation: 90, type: "rover"}
+    ], status: {
+        averageCurrent: 500,
+        batteryPercentage: 50,
+        batteryRemaining: 2500,
+        opticalFlowSensor1: 123,
+        opticalFlowSensor2: 119
+    }});
+    const { height, width, boardHeight, boardWidth } = useWindowDimensions();
 
     useEffect(() => {
         const inteval = setInterval(() => {
@@ -38,10 +52,9 @@ function App() {
                 })
                 .catch(err => console.log(err));
         }, 100);
-
         return () => clearInterval(inteval);
-    });
-
+    }, [telemetry]);
+    //
     return (
         <div className="App">
             <header className="App-header">
@@ -49,14 +62,16 @@ function App() {
             </header>
             <div className="container">
                 <Grid container spacing={2} className={"grid-container"}>
-                    <Grid item lg={6} xs={12}>
+                    <Grid item md={6} xs={12} >
                         <Paper elevation={3} className={"paper-item"}>
-                            <GridBoard map={telemetry.map}/>
+                            <GridBoard map={telemetry.map}
+                                       paperHeight={boardHeight}
+                                       paperWidth={boardWidth}/>
                         </Paper>
                     </Grid>
-                    <Grid item lg={6} xs={12}>
+                    <Grid item md={6} xs={12}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
+                            <Grid item sm={6} xs={12}>
                                 <Paper elevation={3} className={"paper-item"}>
                                     <Telemetry averageCurrent={telemetry.status.averageCurrent}
                                                batteryPercentage={telemetry.status.batteryPercentage}
@@ -66,14 +81,14 @@ function App() {
                                                order={telemetry.order}/>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item sm={6} xs={12}>
                                 <Paper elevation={3} className={"paper-item"}>
                                     <RoverController/>
                                 </Paper>
                             </Grid>
                             <Grid item xs={12}>
                                 <Paper elevation={3} className={"paper-item video-paper"}>
-                                    Photo
+                                    <img src={sexypic} alt="FPGA Image" width = "100%" />
                                 </Paper>
                             </Grid>
                         </Grid>
