@@ -25,27 +25,3 @@ function displayImg(input) {
     }
       
   }
-  
-// create an offscreen canvas
-var canvas=document.createElement("canvas");
-var ctx=canvas.getContext("2d");
-
-canvas.width=80;
-canvas.height=60;
-var idata = ctx.createImageData(width, height);
-
-
-let imgstr = "TEST\nTEST\nTEST";
-displayImg(imgstr);
-
-idata.data.set(buffer);
-
-// update canvas with new data
-ctx.putImageData(idata, 0, 0);
-
-
-var dataUri = canvas.toDataURL();
-
-image.onload = imageLoaded;       // optional callback function
-image.src = dataUri
-
