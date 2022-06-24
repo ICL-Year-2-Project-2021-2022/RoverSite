@@ -11,10 +11,10 @@ import sexypic from "./aliens.jpeg"
 
 const dummyTelemetryData = {
     order: 1,
-    map: [
-        {x: 100, y: 100, rad: 20, type: "obstacle"},
-        {x: 200, y: 200, rad: 30, type: "alien"},
-        {x: 50, y: 50, rad: 5, rotation: 90, type: "rover"}
+    map: [ //cm 
+        {x: 100, y: 100, rad: 20, type: "obstacle", rad_1: 50, rad_2: 25, rotation: 30},
+        {x: 200, y: 200, rad: 30, type: "alien", color: "green", rad_1: 50, rad_2: 100, rotation: 65},
+        {x: 50, y: 50, rad: 50, rotation: 90, type: "rover", rad_1: 30, rad_2: 30, rotation: 0}
     ],
     status: {
         averageCurrent: 500,
@@ -26,11 +26,10 @@ const dummyTelemetryData = {
 };
 
 function App() {
-    const [telemetry, setTelemetry] = useState({map: [
-        {x: 450, y: 400, rad: 50, type: "obstacle"},
-        {x: 170, y: 100, rad: 50, type: "obstacle"},
-        {x: 50, y: 50, rad: 50, type: "alien"},
-        {x: 500, y: 500, rad: 5, rotation: 90, type: "rover"}
+    const [telemetry, setTelemetry] = useState({map: [ //cm 
+        {x: 100, y: 100, rad: 20, type: "obstacle", rad_1: 50, rad_2: 25, rotation: 30},
+        {x: 200, y: 200, rad: 30, type: "alien", color: "green", rad_1: 50, rad_2: 100, rotation: 65},
+        {x: 50, y: 50, rad: 50, rotation: 90, type: "rover", rad_1: 30, rad_2: 30}
     ], status: {
         averageCurrent: 500,
         batteryPercentage: 50,
