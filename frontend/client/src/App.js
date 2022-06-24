@@ -88,6 +88,7 @@ function App() {
                             <Grid item xs={12}>
                                 <Paper elevation={3} className={"paper-item video-paper"}>
                                     <img src={sexypic} alt="FPGA Image" width = "100%" />
+                                    
                                 </Paper>
                             </Grid>
                         </Grid>

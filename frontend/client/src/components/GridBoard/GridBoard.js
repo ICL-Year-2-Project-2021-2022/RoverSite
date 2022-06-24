@@ -38,11 +38,11 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
     }
 
     for (let i = 0; i < objects.length; i++) {
-        let xe = objects[i].x
-        let ye = objects[i].y
+        let xe = objects[i].x * scale
+        let ye = objects[i].y * scale
         ye = shift(ye, scale, paperHeight)
         let rad = 17 * scale
-        let coordinates = centreImage(objects[i].x, objects[i].y, rad)
+        let coordinates = centreImage(objects[i].x * scale, objects[i].y * scale, rad)
         let x = coordinates.x_1
         let y = coordinates.y_1
         y = shift(y, scale, paperHeight)
