@@ -9,6 +9,7 @@ import limeAlien from './Assets/limeAlien.png'
 import pinkAlien from './Assets/pinkAlien.png'
 import yellowAlien from './Assets/yellowAlien.png'
 import useImage from 'use-image'
+import { getBottomNavigationUtilityClass } from '@mui/material';
 
 
 export default function GridBoard({map, paperHeight, paperWidth}) {
@@ -40,13 +41,14 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
         let xe = objects[i].x
         let ye = objects[i].y
         ye = shift(ye, scale, paperHeight)
-        let coordinates = centreImage(objects[i].x, objects[i].y, objects[i].rad)
+        let rad = 17 * scale
+        let coordinates = centreImage(objects[i].x, objects[i].y, rad)
         let x = coordinates.x_1
         let y = coordinates.y_1
         y = shift(y, scale, paperHeight)
         let r1 = objects[i].rad_1
         let r2 = objects[i].rad_2
-        let h = objects[i].rad * 2
+        let h = rad * 2
         let w = h
         let img
         let ellipse
