@@ -28,26 +28,6 @@ database_telemetry.loadDatabase();
 database_telemetry.remove({}, {multi: true}, (err, numRemoved) => console.error('problem clearing DB: ' + err));
 let telemetryOrder = 0;
 
-
-const objectToColourMapping = {
-    R: {
-        fill: "#880000",
-        uncertainty: "#ff0000"
-    },
-    G: {
-        fill: "#008800",
-        uncertainty: "#00ff00"
-    },
-    obst: {
-        fill: "#000000",
-        uncertainty: "#999999"
-    },
-    rover: {
-        fill: '#A32CC4',
-        uncertainty: '#E39FF6'
-    }
-};
-
 const parseKalmanStateToJSON = stateString => stateString.split(',').map(parseFloat);
 
 const parseKalmanVariancesToJSON = variancesString => variancesString.split(';').map(it => it.split(',').map(parseFloat));
