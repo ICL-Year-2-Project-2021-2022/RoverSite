@@ -30,26 +30,6 @@ database_telemetry.loadDatabase();
 database_telemetry.remove({}, {multi: true}, (err, numRemoved) => console.error('problem clearing DB: ' + err));
 let telemetryOrder = 0;
 
-
-const objectToColourMapping = {
-    R: {
-        fill: "#880000",
-        uncertainty: "#ff0000"
-    },
-    G: {
-        fill: "#008800",
-        uncertainty: "#00ff00"
-    },
-    obst: {
-        fill: "#000000",
-        uncertainty: "#999999"
-    },
-    rover: {
-        fill: '#A32CC4',
-        uncertainty: '#E39FF6'
-    }
-};
-
 const parseKalmanStateToJSON = stateString => stateString.split(',').map(parseFloat);
 
 const parseKalmanVariancesToJSON = variancesString => variancesString.split(';').map(it => it.split(',').map(parseFloat));
@@ -59,22 +39,31 @@ const constructMapFromStateAndVariances = (state, variances, landmarkTypes) => {
     const rover = {
         x: state[0],
         y: state[1],
-        rotationRad: state[2],
-        radius: 2 * Math.max(Math.sqrt(variances[0][0]), Math.sqrt(variances[1][1])),
-        type: "rover",
-        colourFill: objectToColourMapping['rover'].fill,
-        colourUncertainty: objectToColourMapping['rover'].uncertainty
+        rotation: state[2],
+        rad_1: Math.sqrt(variances[0][0]),
+        rad_2: Math.sqrt(variances[1][1]),
+        type: "rover"
     }
     map.push(rover);
     for (let i = 0; i < state.length - 3; i += 2) {
-        const colourMapping = objectToColourMapping[landmarkTypes[i / 2]];
+        const colourMapping = ["red", "blue", "green", "lime", "pink", "yellow", "black"]
+        /*make landmark type : color on ESP
+        0 : redAlien
+        1 : blueAlien
+        2 : greenAlien
+        3 : limeAlien
+        4 : pinkAlien
+        5 : yellowAlien
+        6 : black
+        */
+
         map.push({
             x: state[i + 3],
             y: state[i + 4],
-            radius: 2 * Math.max(Math.sqrt(variances[i + 3][i + 3]), Math.sqrt(variances[i + 4][i + 4])),
+            rad_1: Math.sqrt(variances[i + 3][i + 3]), 
+            rad_2: Math.sqrt(variances[i + 4][i + 4]),
             type: landmarkTypes[i / 2],
-            colourFill: colourMapping.fill,
-            colourUncertainty: colourMapping.uncertainty
+            color: colourMapping[landmarkTypes[i/2]]
         });
     }
     return map;
@@ -86,13 +75,43 @@ server.get('/controller/photo', (req, res) => {
     res.end(JSON.stringify({imageString: latestImageString}));
 });
 
+const getConvertedImageData = (input) => {
+    var splitWord = input.split(",");
+    console.log(splitWord);
+    const joined = splitWord.join('');
+    let output = "";
+    const width = 80;
+    const height = 60;
+    var buffer = new Uint8ClampedArray(width * height * 4);
+    console.log(splitWord.length);
+    console.log(splitWord[0].length);
+    for (let i = 0; i < joined.length; i++) {
+        const column = Math.floor(i / 80);
+        const row = (i) % 80;
+        const character = joined.charCodeAt(i);
+        const red = (character & 0x60) >> 5;
+        const green = (character & 0x1C) >> 2;
+        const blue = (character & 0x03);
+        const pos = (column * width + row) * 4; // position in buffer based on x and y
+        buffer[pos] = red * 128;           // some R value [0, 255]
+        buffer[pos + 1] = green * 64;           // some G value
+        buffer[pos + 2] = blue * 128;           // some B value
+        buffer[pos + 3] = 255;           // set alpha channel
+    }
+
+    console.log(buffer);
+    return buffer;
+}
+
 server.post('/rover/telemetry', (req, res) => {
     const currentDateTime = new Date();
     console.log("/rover/telemetry");
+    console.log(JSON.stringify(req.body));
     if (req && req.body && req.body.imageString) {
         console.log("/rover/telemetry message received imageString: " + req.body.imageString);
         console.log("string size: " + req.body.imageString.length);
         latestImageString = req.body.imageString;
+        console.log(getConvertedImageData(latestImageString));
     }
 
     /*const kalmanState = parseKalmanStateToJSON(req.body.kalmanState);

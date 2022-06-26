@@ -14,7 +14,7 @@ import { getBottomNavigationUtilityClass } from '@mui/material';
 
 export default function GridBoard({map, paperHeight, paperWidth}) {
     
-    let scale = paperWidth/355.5
+    let scale = paperWidth/3555
     const [roverPic] = useImage(roverImg)
     const [obstaclePic] = useImage(obstacleImg)
     const [redPic] = useImage(redAlien)
@@ -31,23 +31,23 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
     }
     
     function shift(y, scale, paperHeight) {
-        let konva_height = 233.7 * scale
+        let konva_height = 2337 * scale
         let shift = (paperHeight - konva_height)/2
         console.log(y)
         return y + shift
     }
 
     for (let i = 0; i < objects.length; i++) {
-        let xe = objects[i].x
-        let ye = objects[i].y
+        let xe = objects[i].x * scale
+        let ye = objects[i].y * scale
         ye = shift(ye, scale, paperHeight)
-        let rad = 17 * scale
-        let coordinates = centreImage(objects[i].x, objects[i].y, rad)
+        let rad = 170 * scale
+        let coordinates = centreImage(objects[i].x * scale, objects[i].y * scale, rad)
         let x = coordinates.x_1
         let y = coordinates.y_1
         y = shift(y, scale, paperHeight)
-        let r1 = objects[i].rad_1
-        let r2 = objects[i].rad_2
+        let r1 = objects[i].rad_1 * scale
+        let r2 = objects[i].rad_2 * scale
         let h = rad * 2
         let w = h
         let img
@@ -109,15 +109,15 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
                     x={0}
                     y={0}
                     width={paperWidth}
-                    height={(paperHeight - 233.7 * scale)/2}
+                    height={(paperHeight - 2337 * scale)/2}
                     fill="#282c34"
                 />
                 {elements}
                 <Rect
                     x={0}
-                    y={paperHeight - (paperHeight - 233.7 * scale)/2}
+                    y={paperHeight - (paperHeight - 2337 * scale)/2}
                     width={paperWidth}
-                    height={(paperHeight - 233.7 * scale)/2}
+                    height={(paperHeight - 2337 * scale)/2}
                     fill="#282c34"
                 />
             </Layer>
