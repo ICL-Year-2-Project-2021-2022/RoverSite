@@ -30,7 +30,7 @@ function App() {
     const [telemetry, setTelemetry] = useState({
         map: [ //cm 
             { x: 100, y: 100, type: "obstacle", rad_1: 50, rad_2: 25, rotation: 30 },
-            { x: 200, y: 200, type: "alien", color: "green", rad_1: 50, rad_2: 100, rotation: 65 },
+            { x: 200, y: 200, type: "alien", color: "green", rad_1: 30, rad_2: 20, rotation: 65 },
             { x: 50, y: 50, rotation: 90, type: "rover", rad_1: 30, rad_2: 30 }
         ], status: {
             averageCurrent: 500,

@@ -46,8 +46,8 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
         let x = coordinates.x_1
         let y = coordinates.y_1
         y = shift(y, scale, paperHeight)
-        let r1 = objects[i].rad_1
-        let r2 = objects[i].rad_2
+        let r1 = objects[i].rad_1 * scale
+        let r2 = objects[i].rad_2 * scale
         let h = rad * 2
         let w = h
         let img
