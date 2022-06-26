@@ -12,11 +12,13 @@ const commandsDatabase = new Datastore('./data/commands.db');
 commandsDatabase.loadDatabase();
 commandsDatabase.remove({}, {multi: true}, (err, numRemoved) => console.error('problem clearing DB: ' + err));
 let commandOrder = 0;
+let latestImageString = "";
 
 server.post('/controller/command', (req, res) => {
     console.log('/controller/command');
     const command = req.body;
     command.order = commandOrder;
+    command.type = "drive";
     commandOrder++;
     commandsDatabase.insert(command);
     res.writeHead(200, {'Content-Type': 'application/json'});
@@ -78,11 +80,22 @@ const constructMapFromStateAndVariances = (state, variances, landmarkTypes) => {
     return map;
 };
 
+server.get('/controller/photo', (req, res) => {
+    console.log("/controller/photo - get");
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end(JSON.stringify({imageString: latestImageString}));
+});
+
 server.post('/rover/telemetry', (req, res) => {
     const currentDateTime = new Date();
-    console.log("/rover/telemetry message received: " + currentDateTime);
+    console.log("/rover/telemetry");
+    if (req && req.body && req.body.imageString) {
+        console.log("/rover/telemetry message received imageString: " + req.body.imageString);
+        console.log("string size: " + req.body.imageString.length);
+        latestImageString = req.body.imageString;
+    }
 
-    const kalmanState = parseKalmanStateToJSON(req.body.kalmanState);
+    /*const kalmanState = parseKalmanStateToJSON(req.body.kalmanState);
     const kalmanVariances = parseKalmanVariancesToJSON(req.body.kalmanVariances);
     const map = constructMapFromStateAndVariances(kalmanState, kalmanVariances, ['R', 'G']);
 
@@ -108,7 +121,19 @@ server.post('/rover/telemetry', (req, res) => {
         } else {
             res.end(JSON.stringify({order: -2, message: "No command found"}));
         }
-    });
+    });*/
+    res.end(JSON.stringify({message: "Command received"}));
+});
+
+server.post('/controller/photo', (req, res) => {
+    console.log("/controller/photo");
+    const command = {};
+    command.order = commandOrder;
+    command.type = "photo";
+    commandOrder++;
+    commandsDatabase.insert(command);
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end(JSON.stringify({message: "Command received"}));
 });
 
 server.get('/controller/telemetry', (req, res) => {

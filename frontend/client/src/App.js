@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import GridBoard from './components/GridBoard/GridBoard'
 import Telemetry from './components/Telemetry/Telemetry'
+import Photo from './components/Photo/Photo'
 import RoverController from "./components/RoverController/RoverController";
 import useWindowDimensions from './useWindowDimensions';
 import sexypic from "./aliens.jpeg"
@@ -87,7 +88,7 @@ function App() {
                             </Grid>
                             <Grid item xs={12}>
                                 <Paper elevation={3} className={"paper-item video-paper"}>
-                                    <img src={sexypic} alt="FPGA Image" width = "100%" />
+                                    <Photo />
                                 </Paper>
                             </Grid>
                         </Grid>
