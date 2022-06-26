@@ -11,7 +11,6 @@ import yellowAlien from './Assets/yellowAlien.png'
 import useImage from 'use-image'
 import { getBottomNavigationUtilityClass } from '@mui/material';
 
-
 export default function GridBoard({map, paperHeight, paperWidth}) {
     
     let scale = paperWidth/355.5
