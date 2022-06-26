@@ -14,7 +14,7 @@ import { getBottomNavigationUtilityClass } from '@mui/material';
 
 export default function GridBoard({map, paperHeight, paperWidth}) {
     
-    let scale = paperWidth/355.5
+    let scale = paperWidth/3555
     const [roverPic] = useImage(roverImg)
     const [obstaclePic] = useImage(obstacleImg)
     const [redPic] = useImage(redAlien)
@@ -31,7 +31,7 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
     }
     
     function shift(y, scale, paperHeight) {
-        let konva_height = 233.7 * scale
+        let konva_height = 2337 * scale
         let shift = (paperHeight - konva_height)/2
         console.log(y)
         return y + shift
@@ -41,7 +41,7 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
         let xe = objects[i].x * scale
         let ye = objects[i].y * scale
         ye = shift(ye, scale, paperHeight)
-        let rad = 17 * scale
+        let rad = 170 * scale
         let coordinates = centreImage(objects[i].x * scale, objects[i].y * scale, rad)
         let x = coordinates.x_1
         let y = coordinates.y_1
@@ -109,15 +109,15 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
                     x={0}
                     y={0}
                     width={paperWidth}
-                    height={(paperHeight - 233.7 * scale)/2}
+                    height={(paperHeight - 2337 * scale)/2}
                     fill="#282c34"
                 />
                 {elements}
                 <Rect
                     x={0}
-                    y={paperHeight - (paperHeight - 233.7 * scale)/2}
+                    y={paperHeight - (paperHeight - 2337 * scale)/2}
                     width={paperWidth}
-                    height={(paperHeight - 233.7 * scale)/2}
+                    height={(paperHeight - 2337 * scale)/2}
                     fill="#282c34"
                 />
             </Layer>

@@ -57,22 +57,31 @@ const constructMapFromStateAndVariances = (state, variances, landmarkTypes) => {
     const rover = {
         x: state[0],
         y: state[1],
-        rotationRad: state[2],
-        radius: 2 * Math.max(Math.sqrt(variances[0][0]), Math.sqrt(variances[1][1])),
-        type: "rover",
-        colourFill: objectToColourMapping['rover'].fill,
-        colourUncertainty: objectToColourMapping['rover'].uncertainty
+        rotation: state[2],
+        rad_1: Math.sqrt(variances[0][0]),
+        rad_2: Math.sqrt(variances[1][1]),
+        type: "rover"
     }
     map.push(rover);
     for (let i = 0; i < state.length - 3; i += 2) {
-        const colourMapping = objectToColourMapping[landmarkTypes[i / 2]];
+        const colourMapping = ["red", "blue", "green", "lime", "pink", "yellow", "black"]
+        /*make landmark type : color on ESP
+        0 : redAlien
+        1 : blueAlien
+        2 : greenAlien
+        3 : limeAlien
+        4 : pinkAlien
+        5 : yellowAlien
+        6 : black
+        */
+
         map.push({
             x: state[i + 3],
             y: state[i + 4],
-            radius: 2 * Math.max(Math.sqrt(variances[i + 3][i + 3]), Math.sqrt(variances[i + 4][i + 4])),
+            rad_1: Math.sqrt(variances[i + 3][i + 3]), 
+            rad_2: Math.sqrt(variances[i + 4][i + 4]),
             type: landmarkTypes[i / 2],
-            colourFill: colourMapping.fill,
-            colourUncertainty: colourMapping.uncertainty
+            color: colourMapping[landmarkTypes[i/2]]
         });
     }
     return map;
