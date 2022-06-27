@@ -30,6 +30,14 @@ const getConvertedImageData = (input) => {
   const width = 80;
   const height = 60;
   var buffer = new Uint8ClampedArray(width * height * 4);
+  var buffer2 = [];
+  for (let u=0; u<60; u++) {
+    for (let v=0; v<80; v++) {
+      buffer2.push(new Uint8ClampedArray(4));
+    }
+  }
+
+
   for (let row = 0; row < splitWord.length; row++) {
     for (let col = 0; col < splitWord[0].length; col++) {
       output += splitWord[row].charAt(col);
@@ -39,6 +47,8 @@ const getConvertedImageData = (input) => {
       green[row][col] = (splitWord[row].charCodeAt(col) & 0x1C) >> 2;
       blue[row][col] = (splitWord[row].charCodeAt(col) & 0x03);
       console.log(splitWord[row].charCodeAt(col).toString(2),red[row][col],green[row][col],blue[row][col]);
+
+
       //console.log(green[row][col]);
       //console.log(blue[row][col]);
       var pos = (row * width + col) * 4; // position in buffer based on x and y
@@ -46,11 +56,16 @@ const getConvertedImageData = (input) => {
       buffer[pos + 1] = green[row][col] * 64;           // some G value
       buffer[pos + 2] = blue[row][col] * 128;           // some B value
       buffer[pos + 3] = 255;           // set alpha channel
+
+      buffer2[row][col] = [red[row][col],green[row][col],blue[row][col],255]
     }
   }
   console.log(buffer);
+  console.log(buffer2);
   return buffer;
 }
+
+
 
 const Photo = (input) => {
 
@@ -76,6 +91,8 @@ const Photo = (input) => {
     context.putImageData(idata, 0, 0);
     var img_src = canvas.toDataURL("image/png");
     setImageUrl(img_src);
+
+    //console.log(getImageURL(imageData,80,60));
 
   }, [])
 
