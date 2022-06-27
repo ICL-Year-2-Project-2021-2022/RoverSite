@@ -13,9 +13,9 @@ import Photo from './components/Photo/photo';
 const dummyTelemetryData = {
     order: 1,
     map: [ //mm 
-        { x: 100, y: 100, rad: 20, type: "obstacle", rad_1: 50, rad_2: 25, rotation: 30 },
-        { x: 200, y: 200, rad: 30, type: "alien", color: "green", rad_1: 50, rad_2: 100, rotation: 65 },
-        { x: 50, y: 50, rad: 50, rotation: 90, type: "rover", rad_1: 30, rad_2: 30, rotation: 0 }
+        { x: 1000, y: 1000, rad: 20, type: "obstacle", rad_1: 50, rad_2: 25, rotation: 30 },
+        { x: 2000, y: 2000, rad: 30, type: "alien", color: "green", rad_1: 50, rad_2: 100, rotation: 65 },
+        { x: 500, y: 500, rad: 50, rotation: 90, type: "rover", rad_1: 30, rad_2: 30, rotation: 10 }
     ],
     status: {
         averageCurrent: 500,
@@ -29,9 +29,9 @@ const dummyTelemetryData = {
 function App() {
     const [telemetry, setTelemetry] = useState({
         map: [ //cm 
-            { x: 100, y: 100, type: "obstacle", rad_1: 50, rad_2: 25, rotation: 30 },
-            { x: 200, y: 200, type: "alien", color: "green", rad_1: 30, rad_2: 20, rotation: 65 },
-            { x: 50, y: 50, rotation: 90, type: "rover", rad_1: 30, rad_2: 30 }
+            { x: 1000, y: 1000, type: "obstacle", rad_1: 500, rad_2: 150, rotation: 30 },
+            { x: 2000, y: 2000, type: "alien", color: "green", rad_1: 300, rad_2: 200, rotation: 65 },
+            { x: 500, y: 500, rotation: 90, type: "rover", rad_1: 300, rad_2: 200 }
         ], status: {
             averageCurrent: 500,
             batteryPercentage: 50,

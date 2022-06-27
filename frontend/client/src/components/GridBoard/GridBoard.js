@@ -23,6 +23,7 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
     const [pinkPic] = useImage(pinkAlien)
     const[yellowPic] = useImage(yellowAlien)
     const [limePic] = useImage(limeAlien)
+    
     let elements = []
     let objects = map
     
@@ -35,6 +36,29 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
         let shift = (paperHeight - konva_height)/2
         console.log(y)
         return y + shift
+    }
+
+    function degToRad(angle) {
+        return angle / 180 * Math.PI;
+    }
+
+    function rotate(x,y, x_centre, y_centre, angle) {
+        let phi = degToRad(angle)
+        let xo = Math.round(
+            x_centre +
+                (x - x_centre) * Math.cos(phi) -
+                (y - y_centre) * Math.sin(phi)
+        );
+        let yo = Math.round(
+            y_centre +
+                (x - x_centre) * Math.sin(phi) +
+                (y - y_centre) * Math.cos(phi)
+        );
+        return {
+            xo,
+            yo,
+            angle
+        }
     }
 
     for (let i = 0; i < objects.length; i++) {
@@ -53,6 +77,8 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
         let img
         let ellipse
         let theta = objects[i].rotation
+        let logo 
+
         if(objects[i]["type"] === "alien") {
             
             if(objects[i].color === "red") {
@@ -79,17 +105,20 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
                 img = yellowPic
                 ellipse = <Ellipse x={xe} y={ye} radius={{x:r1, y:r2}} rotation={theta} fill="yellow" opacity={0.35} />
             }
-            
+            logo = <Image image={img} x={x} y={y} height={h} width ={w} />
         }
         if(objects[i].type === "obstacle") {
             img = obstaclePic
+            logo = <Image image={img} x={x} y={y} height={h} width ={w} />
             ellipse = <Ellipse x={xe} y={ye} radius={{x:r1, y:r2}} rotation={theta} fill="gray" opacity={0.4} />
         }
         if(objects[i].type === "rover") {
             img = roverPic
+            console.log(`x: ${x}, y: ${y}, xe: ${xe}, ye: ${ye}, x+rad: ${x+rad}, y+rad: ${y+rad}`)
+            logo = <Image image={img} x={x} y={y} offsetX={h/2} offsetY={w/2} height={h} width ={w} rotation={60}  />
             ellipse = <Ellipse x={xe} y={ye} radius={{x:r1, y:r2}} rotation={theta} fill="violet" opacity={0.3} />
         }
-        elements.push(<Image image={img} x={x} y={y} height={h} width ={w} />)
+        elements.push(logo)
         elements.push(ellipse)
     }
     
