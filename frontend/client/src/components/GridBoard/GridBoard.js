@@ -1,5 +1,5 @@
 import React from 'react'
-import {Ellipse, Layer, Image, Rect, Stage} from 'react-konva';
+import {Ellipse, Circle, Layer, Image, Rect, Stage} from 'react-konva';
 import roverImg from './Assets/rover.png'
 import obstacleImg from './Assets/obstacle.png'
 import redAlien from './Assets/redAlien.png'
@@ -115,7 +115,8 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
         if(objects[i].type === "rover") {
             img = roverPic
             console.log(`x: ${x}, y: ${y}, xe: ${xe}, ye: ${ye}, x+rad: ${x+rad}, y+rad: ${y+rad}`)
-            logo = <Image image={img} x={x} y={y} offsetX={h/2} offsetY={w/2} height={h} width ={w} rotation={60}  />
+            elements.push(<Circle x={xe} y={ye} radius={10} fill="red" />)
+            logo = <Image image={img} x={x} y={y} height={h} width ={w} rotation={0} />
             ellipse = <Ellipse x={xe} y={ye} radius={{x:r1, y:r2}} rotation={theta} fill="violet" opacity={0.3} />
         }
         elements.push(logo)
