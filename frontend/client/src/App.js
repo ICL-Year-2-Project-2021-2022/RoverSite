@@ -9,7 +9,6 @@ import Photo from './components/Photo/Photo'
 import RoverController from "./components/RoverController/RoverController";
 import useWindowDimensions from './useWindowDimensions';
 import sexypic from "./aliens.jpeg"
-import Photo from './components/Photo/photo';
 
 const dummyTelemetryData = {
     order: 1,
@@ -24,7 +23,8 @@ const dummyTelemetryData = {
         batteryRemaining: 2500,
         opticalFlowSensor1: 123,
         opticalFlowSensor2: 456
-    }
+    },
+    imageData: ''
 };
 
 function App() {
@@ -39,7 +39,8 @@ function App() {
             batteryRemaining: 2500,
             opticalFlowSensor1: 123,
             opticalFlowSensor2: 119
-        }
+        },
+        imageData: ''
     });
     const { height, width, boardHeight, boardWidth } = useWindowDimensions();
 
@@ -48,10 +49,11 @@ function App() {
             const URL = "http://localhost:5000/controller/telemetry";
             axios.get(URL)
                 .then(res => {
-                    const resTelemetry = res.data[0];
+                    const resTelemetry = res.data;
                     if (resTelemetry) {
                         setTelemetry(resTelemetry);
                     }
+                    console.log(resTelemetry);
                 })
                 .catch(err => console.log(err));
         }, 100);
@@ -91,7 +93,7 @@ function App() {
                             </Grid>
                             <Grid item xs={12}>
                                 <Paper elevation={3} className={"paper-item video-paper"}>
-                                    <Photo />
+                                    <Photo imageData={telemetry.imageData}/>
                                 </Paper>
                             </Grid>
                         </Grid>
