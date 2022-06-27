@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import GridBoard from './components/GridBoard/GridBoard'
 import Telemetry from './components/Telemetry/Telemetry'
-import Photo from './components/Photo/Photo'
+import Photo from './components/Photo/photo'
 import RoverController from "./components/RoverController/RoverController";
 import useWindowDimensions from './useWindowDimensions';
 import TextMap from "./components/TextMap/TextMap"
