@@ -64,7 +64,7 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1 className="App-title">Rover Mapping</h1>
+                <h1 className="App-title">ROVER COMMAND</h1>
             </header>
             <div className="container">
                 <Grid container spacing={2} className={"grid-container"}>
