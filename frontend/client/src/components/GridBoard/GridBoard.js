@@ -79,7 +79,7 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
         let theta = objects[i].rotation
         let logo 
 
-        if(objects[i]["type"] === "alien") {
+        if(objects[i].type === "alien") {
             
             if(objects[i].color === "red") {
                 img = redPic

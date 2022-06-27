@@ -8,6 +8,7 @@ import Telemetry from './components/Telemetry/Telemetry'
 import Photo from './components/Photo/Photo'
 import RoverController from "./components/RoverController/RoverController";
 import useWindowDimensions from './useWindowDimensions';
+import TextMap from "./components/TextMap/TextMap"
 import sexypic from "./aliens.jpeg"
 
 const dummyTelemetryData = {
@@ -98,6 +99,11 @@ function App() {
                             </Grid>
                         </Grid>
                     </Grid>
+                </Grid>
+                <Grid margin={2}>
+                    <Paper>
+                        <TextMap map={telemetry.map} />
+                    </Paper>
                 </Grid>
             </div>
         </div>

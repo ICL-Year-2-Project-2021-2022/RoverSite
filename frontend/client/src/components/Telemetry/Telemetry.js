@@ -2,6 +2,7 @@ import React from 'react'
 import './Telemetry.css'
 
 export default function Telemetry(props) {
+    
     return (
         <div className="score-board" style={{marginLeft:'auto', marginRight:'auto'}}>
             <h2>Telemetry</h2>
