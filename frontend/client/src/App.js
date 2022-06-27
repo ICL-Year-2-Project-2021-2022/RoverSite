@@ -32,7 +32,7 @@ function App() {
         map: [ //cm 
             { x: 1000, y: 1000, type: "obstacle", rad_1: 500, rad_2: 150, rotation: 30 },
             { x: 2000, y: 2000, type: "alien", color: "green", rad_1: 300, rad_2: 200, rotation: 65 },
-            { x: 500, y: 500, rotation: 90, type: "rover", rad_1: 300, rad_2: 200 }
+            { x: 500, y: 500, rotation: -50, type: "rover", rad_1: 300, rad_2: 200 }
         ], status: {
             averageCurrent: 500,
             batteryPercentage: 50,

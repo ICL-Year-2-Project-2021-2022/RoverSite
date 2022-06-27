@@ -54,6 +54,7 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
                 (x - x_centre) * Math.sin(phi) +
                 (y - y_centre) * Math.cos(phi)
         );
+        console.log(`Angle: ${angle}`)
         return {
             xo,
             yo,
@@ -78,6 +79,7 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
         let ellipse
         let theta = objects[i].rotation
         let logo 
+        let funtime = rotate(x,y, xe, ye, theta)
 
         if(objects[i].type === "alien") {
             
@@ -115,8 +117,7 @@ export default function GridBoard({map, paperHeight, paperWidth}) {
         if(objects[i].type === "rover") {
             img = roverPic
             console.log(`x: ${x}, y: ${y}, xe: ${xe}, ye: ${ye}, x+rad: ${x+rad}, y+rad: ${y+rad}`)
-            elements.push(<Circle x={xe} y={ye} radius={10} fill="red" />)
-            logo = <Image image={img} x={x} y={y} height={h} width ={w} rotation={0} />
+            logo = <Image image={img} x={funtime.xo} y={funtime.yo} height={h} width ={w} rotation={theta}/>
             ellipse = <Ellipse x={xe} y={ye} radius={{x:r1, y:r2}} rotation={theta} fill="violet" opacity={0.3} />
         }
         elements.push(logo)
