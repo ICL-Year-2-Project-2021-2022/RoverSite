@@ -4,14 +4,37 @@ import './Telemetry.css'
 export default function Telemetry(props) {
     
     return (
-        <div className="score-board" style={{marginLeft:'auto', marginRight:'auto'}}>
-            <h2>Telemetry</h2>
-            <div>Packet order: {props.order}</div>
-            <div>Average current: {props.averageCurrent} mA</div>
-            <div>Battery: {props.batteryPercentage} %</div>
-            <div>Battery charge: {props.batteryRemaining} mAh</div>
-            <div>Optical flow sensor 1 features: {props.opticalFlowSensor1} </div>
-            <div>Optical flow sensor 2 features: {props.opticalFlowSensor2} </div>
-        </div>
+        <div>
+            <h3 style={{marginLeft: "auto", marginRight: "Auto"}}>Telemetry</h3>
+        <table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Current (mA)</td>
+      <td>{props.averageCurrent}</td>
+    </tr>
+    <tr>
+      <td>Battery (%)</td>
+      <td>{props.batteryPercentage}</td>
+    </tr>
+    <tr>
+      <td>Charge (mAh)</td>
+      <td>{props.batteryRemaining} </td>
+    </tr>
+    <tr>
+      <td>S-Qual 1 </td>
+      <td>{props.opticalFlowSensor1}</td>
+    </tr>
+    <tr>
+      <td>S-Qual 2</td>
+      <td>{props.opticalFlowSensor2}</td>
+    </tr>
+  </tbody>
+</table></div>
     )
 }

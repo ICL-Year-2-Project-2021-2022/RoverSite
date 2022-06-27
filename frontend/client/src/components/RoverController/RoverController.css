@@ -1,2 +1,8 @@
 .rover-controller {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.rover-title {
+    font-weight: 600;
+    margin-bottom: 0.2em;
 }

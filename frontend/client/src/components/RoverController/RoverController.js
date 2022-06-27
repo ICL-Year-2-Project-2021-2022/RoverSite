@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import './RoverController.css'
+import Button from '@mui/material/Button';
+import { useRadioGroup } from '@mui/material/RadioGroup';
 
 export default function RoverController(props) {
     const [rotateLeft, setRotateLeft] = useState(0);
@@ -19,10 +21,10 @@ export default function RoverController(props) {
         axios.post(URL, command).then(console.log);
     };
 
-    return <div className={"rover-controller"} style={{marginLeft:'auto', marginRight:'auto'}}>
-        <h2>Control</h2>
+    return <div className={"rover-controller"} >
+        <h2 className={"rover-title"}>Control</h2>
         <div>
-            <label>Drive mode</label>
+            <label>Drive Mode:</label>
             <div onChange={event => setDriveMode(event.target.value)}>
                 <input type="radio" value="Controlled" name="drive-mode"
                        defaultChecked={driveMode === "Controlled"}/> Controlled
@@ -49,7 +51,7 @@ export default function RoverController(props) {
                 <input id="move-back" type="number" value={moveBack}
                        onChange={event => setMoveBack(event.target.value)}/>
             </div>
-            <button onClick={handleSend}>Send</button>
+            <Button variant="contained" onClick={handleSend} style={{backgroundColor: "#282c34"}}>Send</Button>
         </div>
     </div>;
 }
