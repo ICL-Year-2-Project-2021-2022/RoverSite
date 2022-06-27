@@ -5,7 +5,7 @@ export default function Telemetry(props) {
     
     return (
         <div>
-            <h3 style={{marginLeft: "auto", marginRight: "Auto"}}>Telemetry</h3>
+            <h3 className="score-title">Telemetry</h3>
         <table>
   <thead>
     <tr>

@@ -18,7 +18,7 @@ export default function textMap(props) {
     }
     return (
         <div className="score-board" style={{marginLeft:'auto', marginRight:'auto'}}>
-            <div><h1>Map Coordinates</h1></div>
+            <div><h2 classname="title-score">Map Coordinates</h2></div>
             <div style={{color : 'red', fontWeight: 'bold'}}>WARNING: Aliens Located!</div>
             {aliens}
             <div style={{color : 'red', fontWeight: 'bold'}}>ALERT: Obstacles Nearby!</div>

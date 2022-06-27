@@ -22,7 +22,7 @@ export default function RoverController(props) {
     };
 
     return <div className={"rover-controller"} >
-        <h2 className={"rover-title"}>Control</h2>
+        <h3 className={"rover-title"}>Control</h3>
         <div>
             <label>Drive Mode:</label>
             <div onChange={event => setDriveMode(event.target.value)}>
@@ -51,7 +51,7 @@ export default function RoverController(props) {
                 <input id="move-back" type="number" value={moveBack}
                        onChange={event => setMoveBack(event.target.value)}/>
             </div>
-            <Button variant="contained" onClick={handleSend} style={{backgroundColor: "#282c34"}}>Send</Button>
+            <Button variant="contained" onClick={handleSend} style={{backgroundColor: "#282c34", marginTop: "1em"}}>Send</Button>
         </div>
     </div>;
 }
