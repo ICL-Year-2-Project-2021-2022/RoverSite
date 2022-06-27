@@ -15,7 +15,7 @@ export default function Photo({imageData}) {
     };
 
     return <div className="image-container">
-        <Button variant="contained" onClick={handleFetchImage} >Fetch photo</Button>
+        <Button variant="contained" onClick={handleFetchImage} style={{backgroundColor: "#282c34"}}>Fetch photo</Button>
         <img className="received-image" src={"data:image/png;base64, " + imageData} alt="Image received"/>
     </div>
 }
