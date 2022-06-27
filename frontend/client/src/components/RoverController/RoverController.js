@@ -7,7 +7,7 @@ export default function RoverController(props) {
     const [rotateRight, setRotateRight] = useState(0);
     const [moveForward, setMoveForward] = useState(0);
     const [moveBack, setMoveBack] = useState(0);
-    const [driveMode, setDriveMode] = useState("Control");
+    const [driveMode, setDriveMode] = useState("Autonomous");
 
     const handleSend = event => {
         const rotateLeftRad = Math.PI * rotateLeft / 180;
@@ -24,8 +24,8 @@ export default function RoverController(props) {
         <div>
             <label>Drive mode</label>
             <div onChange={event => setDriveMode(event.target.value)}>
-                <input type="radio" value="Control" name="drive-mode"
-                       defaultChecked={driveMode === "Control"}/> Controlled
+                <input type="radio" value="Controlled" name="drive-mode"
+                       defaultChecked={driveMode === "Controlled"}/> Controlled
                 <input type="radio" value="Autonomous" name="drive-mode"
                        defaultChecked={driveMode === "Autonomous"}/> Autonomous
             </div>

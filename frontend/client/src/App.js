@@ -5,10 +5,10 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import GridBoard from './components/GridBoard/GridBoard'
 import Telemetry from './components/Telemetry/Telemetry'
+import Photo from './components/Photo/Photo'
 import RoverController from "./components/RoverController/RoverController";
 import useWindowDimensions from './useWindowDimensions';
 import sexypic from "./aliens.jpeg"
-import Photo from './components/Photo/photo';
 
 const dummyTelemetryData = {
     order: 1,
@@ -23,7 +23,8 @@ const dummyTelemetryData = {
         batteryRemaining: 2500,
         opticalFlowSensor1: 123,
         opticalFlowSensor2: 456
-    }
+    },
+    imageData: ''
 };
 
 function App() {
@@ -38,7 +39,8 @@ function App() {
             batteryRemaining: 2500,
             opticalFlowSensor1: 123,
             opticalFlowSensor2: 119
-        }
+        },
+        imageData: ''
     });
     const { height, width, boardHeight, boardWidth } = useWindowDimensions();
 
@@ -51,6 +53,7 @@ function App() {
                     if (resTelemetry) {
                         setTelemetry(resTelemetry);
                     }
+                    console.log(resTelemetry);
                 })
                 .catch(err => console.log(err));
         }, 100);
@@ -90,8 +93,7 @@ function App() {
                             </Grid>
                             <Grid item xs={12}>
                                 <Paper elevation={3} className={"paper-item video-paper"}>
-                                    <Photo />
-                                    {/*<img src={sexypic} alt="FPGA Image" width = "100%" />*/}
+                                    <Photo imageData={telemetry.imageData}/>
                                 </Paper>
                             </Grid>
                         </Grid>
