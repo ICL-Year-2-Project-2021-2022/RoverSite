@@ -120,13 +120,13 @@ server.post('/rover/telemetry', (req, res) => {
     const currentDateTime = new Date();
     console.log("/rover/telemetry");
     console.log(JSON.stringify(req.body));
-    if (req && req.body && req.body.imageString) {
-        console.log("/rover/telemetry message received imageString: " + req.body.imageString);
-        console.log("string size: " + req.body.imageString.length);
-        convertImageToDataString(req.body.imageString);
+    if (req && req.body && req.body.imageData) {
+        console.log("/rover/telemetry message received imageString: " + req.body.imageData);
+        console.log("string size: " + req.body.imageData.length);
+        convertImageToDataString(req.body.imageData);
     }
 
-    /*const kalmanState = parseKalmanStateToJSON(req.body.kalmanState);
+    const kalmanState = parseKalmanStateToJSON(req.body.kalmanState);
     const kalmanVariances = parseKalmanVariancesToJSON(req.body.kalmanVariances);
     const map = constructMapFromStateAndVariances(kalmanState, kalmanVariances, ['R', 'G']);
 
@@ -152,8 +152,7 @@ server.post('/rover/telemetry', (req, res) => {
         } else {
             res.end(JSON.stringify({order: -2, message: "No command found"}));
         }
-    });*/
-    res.end(JSON.stringify({message: "Command received"}));
+    });
 });
 
 server.post('/controller/photo', (req, res) => {
