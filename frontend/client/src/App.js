@@ -49,7 +49,7 @@ function App() {
             const URL = "http://localhost:5000/controller/telemetry";
             axios.get(URL)
                 .then(res => {
-                    const resTelemetry = res.data;
+                    const resTelemetry = res.data[0];
                     if (resTelemetry) {
                         setTelemetry(resTelemetry);
                     }

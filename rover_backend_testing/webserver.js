@@ -169,23 +169,14 @@ server.post('/controller/photo', (req, res) => {
 server.get('/controller/telemetry', (req, res) => {
     console.log("telemetry");
     res.writeHead(200, {'Content-Type': 'application/json'});
-    //database_telemetry.find({}).sort({order: -1}).limit(1).exec((err, data) => {
-    const data = {
-        map: [ //cm
-            {x: 100, y: 100, type: "obstacle", rad_1: 50, rad_2: 25, rotation: 30},
-            {x: 200, y: 200, type: "alien", color: "green", rad_1: 30, rad_2: 20, rotation: 65},
-            {x: 50, y: 50, rotation: 90, type: "rover", rad_1: 30, rad_2: 30}
-        ], status: {
-            averageCurrent: 500,
-            batteryPercentage: 50,
-            batteryRemaining: 2500,
-            opticalFlowSensor1: 123,
-            opticalFlowSensor2: 119
+    database_telemetry.find({}).sort({order: -1}).limit(1).exec((err, data) => {
+        if (data[0]) {
+            data[0]["imageData"] = latestImageString;
+        } else {
+            data["imageData"] = latestImageString;
         }
-    };
-    data["imageData"] = latestImageString;
-    res.end(JSON.stringify(data));
-    //});
+        res.end(JSON.stringify(data));
+    });
 });
 
 server.listen(5000, "0.0.0.0");
