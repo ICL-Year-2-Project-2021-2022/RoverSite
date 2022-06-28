@@ -30,6 +30,11 @@ server.post('/controller/command', (req, res) => {
 const database_telemetry = new Datastore('./data/telemetry.db');
 database_telemetry.loadDatabase();
 database_telemetry.remove({}, {multi: true}, (err, numRemoved) => console.error('problem clearing DB: ' + err));
+
+const database_observations = new Datastore('./data/observations.db');
+database_observations.loadDatabase();
+database_observations.remove({}, {multi: true}, (err, numRemoved) => console.error('problem clearing DB: ' + err));
+
 let telemetryOrder = 0;
 
 const parseKalmanStateToJSON = stateString => stateString.split(',').map(parseFloat);
@@ -116,6 +121,23 @@ const convertImageToDataString = (input) => {
     return buffer;
 }
 
+const parseObservations = (observationsString, roverX, roverY, roverAngle) => {
+    const arraySplit = observationsString.split(';');
+    const result = [];
+    for (let i = 0; i < arraySplit.length / 4; i++) {
+        //String(observation->land_dist) + ";" + String(observation->land_ang) + ";" + String(observation->color) + ";"
+        const observationObj = {
+            distance: arraySplit[4 * i],
+            angle: arraySplit[4 * i + 1],
+            color: arraySplit[4 * i + 2],
+            roverX, roverY, roverAngle,
+            timestamp: Date.now()
+        };
+        result.push(observationObj);
+    }
+    return result;
+};
+
 server.post('/rover/telemetry', (req, res) => {
     const currentDateTime = new Date();
     console.log("/rover/telemetry");
@@ -129,7 +151,12 @@ server.post('/rover/telemetry', (req, res) => {
     const kalmanState = parseKalmanStateToJSON(req.body.kalmanState);
     const kalmanVariances = parseKalmanVariancesToJSON(req.body.kalmanVariances);
     const map = constructMapFromStateAndVariances(kalmanState, kalmanVariances, ['R', 'G']);
-
+    if (req.body.observations) {
+        const observations = parseObservations(req.body.observations, kalmanState[0], kalmanState[1], kalmanState[2]);
+        observations.forEach(obs => {
+            database_observations.insert(obs);
+        });
+    }
     const dbRecord = {
         order: telemetryOrder,
         map,
@@ -175,7 +202,14 @@ server.get('/controller/telemetry', (req, res) => {
         } else {
             data["imageData"] = latestImageString;
         }
-        res.end(JSON.stringify(data));
+        database_observations.find({}).exec((err, dataObs) => {
+            if (data[0]) {
+                data[0]["observations"] = dataObs.sort((a, b) => a.timestamp < b.timestamp);
+            } else {
+                data["observations"] = dataObs.sort((a, b) => a.timestamp < b.timestamp);
+            }
+            res.end(JSON.stringify(data));
+        });
     });
 });
 
